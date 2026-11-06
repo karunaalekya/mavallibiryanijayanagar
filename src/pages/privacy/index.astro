@@ -1,0 +1,68 @@
+---
+import LegalDoc from '../../components/LegalDoc.astro';
+import { cfg, callNum } from '../../lib/site';
+const legal = cfg.legalName ?? cfg.name;
+const addr = `${cfg.address.line}, ${cfg.address.city} ${cfg.address.pin}`;
+const gr = cfg.grievanceOfficer ?? 'The Outlet Manager';
+---
+<LegalDoc title="Privacy Policy" description="How Mavalli Biryani Jayanagar collects, uses and protects your personal data under Indian law." path="/privacy/" crumb="Privacy">
+    <p>This policy explains what personal data {cfg.name} handles when you use this website or contact us, why we handle it, and what choices you have. We follow the Digital Personal Data Protection Act, 2023, the Information Technology Act, 2000 and the rules made under them.</p>
+
+    <h2>1. Who we are</h2>
+    <p>{legal} runs the Jayanagar outlet of Mavalli Biryani and this website ("we", "us"). We decide why and how your personal data is used, which makes us the data fiduciary. Address: {addr}. Email: <a href={`mailto:${cfg.email}`}>{cfg.email}</a>.</p>
+
+    <h2>2. What we collect</h2>
+    <ul>
+      <li><b>What you send us.</b> When you call, message us on WhatsApp or email us, we receive your phone number or email address, your name if you share it, and your order details such as dishes, quantity and any delivery address you give.</li>
+      <li><b>Chat helper and menu cart.</b> The chat helper can ask for your name and, if you wish, your mobile number. The menu cart remembers the dishes you add. Both stay in your browser and are used only to write your WhatsApp message. They are not sent to our website's server. The cart and the helper's tip are cleared when you close the tab. WhatsApp opens with the message ready and you decide whether to send it.</li>
+      <li><b>Analytics, only if you accept.</b> If you accept analytics cookies, Google Analytics records which pages you open and which buttons you tap (Call, WhatsApp, Directions, Menu). It does not know your name or phone number.</li>
+      <li><b>Nothing else.</b> This website has no accounts, no sign-up, no payment form and no advertising trackers.</li>
+    </ul>
+
+    <h2>2A. Why we use it</h2>
+    <ul>
+      <li>To answer you and to take, confirm and fulfil your order. You give us this data yourself when you contact us, and we use it only for that purpose.</li>
+      <li>To keep records that the law requires, such as tax and food-safety records.</li>
+      <li>To understand which pages help customers, but only with your consent through the cookie choice. You can say no and still use every part of the site.</li>
+    </ul>
+
+    <h2>3. Who we share it with</h2>
+    <p>We do not sell your personal data. It is shared only as needed:</p>
+    <ul>
+      <li><b>WhatsApp (Meta)</b> when you message us there. Their privacy policy applies to that chat.</li>
+      <li><b>Google</b> for analytics (only if you accept) and for Google Maps when you tap Directions.</li>
+      <li><b>Swiggy and Zomato</b> if you order through them. They handle those details under their own policies.</li>
+      <li><b>Service providers</b> who help us run the website, under a duty to protect it.</li>
+      <li><b>Authorities</b> when a law or a court order requires it.</li>
+    </ul>
+
+    <h2>4. Where it is processed</h2>
+    <p>WhatsApp and Google process data on servers that may be outside India. We rely on their security commitments, and we do not send your data to any country the Government of India has restricted for this purpose.</p>
+
+    <h2>5. How long we keep it</h2>
+    <p>Order messages are kept only as long as needed to complete the order, handle any complaint and meet legal record-keeping. Analytics data is kept for up to 14 months in our Google Analytics account, then deleted. When we no longer need your data, we delete it or remove anything that identifies you.</p>
+
+    <h2>6. Your rights</h2>
+    <p>Under the Digital Personal Data Protection Act, 2023 you may:</p>
+    <ul>
+      <li>ask for a summary of the personal data we hold about you and how we use it;</li>
+      <li>ask us to correct or complete it;</li>
+      <li>ask us to erase it, unless the law requires us to keep it;</li>
+      <li>withdraw your consent at any time. Withdrawing is as easy as giving it: use <button type="button" class="legal-link" data-cookie-settings>Cookie settings</button> for analytics, or write to us for anything else;</li>
+      <li>nominate another person to exercise these rights if you die or cannot act for yourself;</li>
+      <li>complain to us, and if we do not resolve it, to the Data Protection Board of India.</li>
+    </ul>
+    <p>Email us from the address or phone you used, and tell us what you want. We reply within 30 days at the latest.</p>
+
+    <h2>7. Children</h2>
+    <p>This website is for adults. We do not knowingly collect personal data of anyone under 18 without a parent's or guardian's consent, and we do not track or profile children. If you think a child has sent us data, write to us and we will delete it.</p>
+
+    <h2>8. Security</h2>
+    <p>The website is served over HTTPS and holds no customer database. Orders reach us through WhatsApp, phone and email, which we keep on staff devices and accounts protected by passcodes. No system is perfectly secure, so please do not send card numbers, OTPs or passwords to us. We never ask for them.</p>
+
+    <h2>9. Changes</h2>
+    <p>If we change this policy, we post the new version here with a new date. If a change affects how we use your data, we ask for your consent again where the law requires it.</p>
+    <h2>Grievance contact</h2>
+    <p>{gr}, {legal}, {addr}.<br />Email: <a href={`mailto:${cfg.email}`}>{cfg.email}</a>{callNum && <> · Phone / WhatsApp: +91 {callNum}</>}</p>
+    <p>We acknowledge every complaint within 48 hours and aim to resolve it within one month.</p>
+  </LegalDoc>

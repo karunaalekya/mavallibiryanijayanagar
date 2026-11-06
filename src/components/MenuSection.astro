@@ -1,0 +1,400 @@
+---
+// Menu section: printed-menu look (maroon + gold panels, numbered items). Mirrors the in-outlet menu board.
+// Data: src/data/menu.json (single source of truth). Category ids double as anchors (/menu/#non-veg-starter etc.).
+import menu from '../data/menu.json';
+import { waLink, cfg, brandIcon, brandName, waIcon } from '../lib/site';
+const app = (k: string, label: string) => cfg[k]
+  ? `<a href="${cfg[k]}" target="_blank" rel="noopener" class="brand brand-${k}" aria-label="Order on ${label}" data-evt="${k}_click">${brandIcon[k]}<span class="wm">${brandName[k]}</span><span aria-hidden="true">→</span></a>`
+  : '';
+const IMG = '/img/dishes/';
+const cats = menu.categories as any[];
+const orderHref = (i: any) => waLink(`ನಮಸ್ಕಾರ! Hi, I want to order ${i.name} (₹${i.price})`);
+let no = 0; // running item number, continues across categories so a customer can say "number 12"
+const numbered = cats.map((c) => ({ ...c, items: c.items.map((i: any) => ({ ...i, no: ++no })) }));
+const total = no;
+const leaf = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 20C4 9 10 4 20 4c0 10-5 16-14 16" fill="#58b84f"/><path d="M4 20c3-5 7-8 12-10" fill="none" stroke="#0f3a14" stroke-width="1.6" stroke-linecap="round"/></svg>';
+---
+<section id="mn-menu" class="mn" aria-labelledby="mn-title">
+  <div class="mn-wrap">
+    <header class="mn-head">
+      <p class="mn-eyebrow">Legendary Karnataka wood fire restaurant · Taste of 1952</p>
+      <h1 id="mn-title" class="mn-title"><span class="mn-script">Jayanagara</span> <span class="mn-branch">Branch</span> <span class="sr-only">menu</span></h1>
+      <p lang="kn" class="mn-kn">ಮಾವಳ್ಳಿ ಬಿರಿಯಾನಿ · ಜಯನಗರ</p>
+      <p class="mn-sub">{total} dishes, numbered as on our menu board. Prices in ₹, GST as applicable. Tap Add on the dishes you want, then send your order on WhatsApp.</p>
+      <div class="mn-apps" aria-label="Order online">
+        <span class="mn-apps-l">Order on</span>
+        <Fragment set:html={app('swiggy', 'Swiggy') + app('zomato', 'Zomato')} />
+        <a href={waLink()} class="brand brand-wa" data-evt="whatsapp_click"><svg viewBox="0 0 32 32" aria-hidden="true" set:html={waIcon} /><span class="wm">WhatsApp</span><span aria-hidden="true">→</span></a>
+      </div>
+    </header>
+  </div>
+
+  <div class="mn-tabs" id="mn-tabs">
+    <div class="mn-tabs-in" id="mn-tabs-in" role="group" aria-label="Menu categories">
+      <button type="button" class="mn-tab" data-mn-tab="all" aria-pressed="true">All</button>
+      {numbered.map((c) => <button type="button" class="mn-tab" data-mn-tab={c.id} aria-pressed="false">{c.name}</button>)}
+    </div>
+  </div>
+
+  <div class="mn-wrap">
+    <div id="mn-body" class="mn-cols">
+      {[numbered.slice(0, 4), numbered.slice(4)].map((col) => (<div class="mn-col">
+      {col.map((c) => (
+        <section class="mn-cat" id={c.id} data-mn-cat={c.id} aria-labelledby={`${c.id}-h`}>
+          <div class="mn-cat-top">
+            <h2 class="mn-cat-h" id={`${c.id}-h`}>{c.veg && <span class="mn-leaf" set:html={leaf} />}{c.name}</h2>
+            {c.note && <span class="mn-note">{c.note}</span>}
+          </div>
+          <ol class="mn-list">
+            {c.items.map((i: any) => (
+              <li class="mn-row" value={i.no} data-no={i.no} data-name={i.name} data-price={i.price}>
+                <span class="mn-no" aria-label={`Item ${i.no}`}>{i.no}</span>
+                {i.img && <span class="mn-ph"><img class="mn-thumb" src={IMG + i.img.replace('.webp', '-t.webp')} alt="" width="128" height="128" loading="lazy" decoding="async" /><svg class="mn-ol" viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0,1 L0,.42 C0,.32 .035,.285 .095,.285 L.13,.285 C.19,.285 .205,.235 .245,.15 C.29,.05 .38,0 .5,0 C.62,0 .71,.05 .755,.15 C.795,.235 .81,.285 .87,.285 L.905,.285 C.965,.285 1,.32 1,.42 L1,1 Z" fill="none" stroke="#C58B2A" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/></svg></span>}
+                <div class="mn-rname">
+                  <span class="mn-name">{i.name}</span>
+                  {i.badge && <span class="mn-tag">{i.badge}</span>}
+                  {i.kn && <span lang="kn" class="mn-kname">{i.kn}</span>}
+                </div>
+                <span class="mn-dots" aria-hidden="true"></span>
+                <span class="mn-price"><span class="sr-only">Rupees </span>₹{i.price}</span>
+                <div class="mn-ctl">
+                  <button type="button" class="mn-add" data-act="add" data-evt="add_to_cart" aria-label={`Add ${i.name} to your order`}>Add</button>
+                  <div class="mn-step" hidden role="group" aria-label={`${i.name} quantity`}>
+                    <button type="button" data-act="dec" aria-label={`Remove one ${i.name}`}>−</button>
+                    <output aria-live="polite">1</output>
+                    <button type="button" data-act="inc" aria-label={`Add one more ${i.name}`}>+</button>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ))}
+      </div>))}
+    </div>
+
+    <aside class="mn-party" aria-label="Party and office orders">
+      <div>
+        <h2 class="mn-party-h">Party or office order?</h2>
+        <p lang="kn" class="mn-kn mn-party-kn">ಪಾರ್ಟಿ ಅಥವಾ ಆಫೀಸ್ ಆರ್ಡರ್?</p>
+        <p class="mn-party-p">Tell us the date, number of people and dishes. We reply on WhatsApp with a quote.</p>
+      </div>
+      <div class="mn-party-act">
+        <a class="btn btn-wa" href={waLink('ನಮಸ್ಕಾರ! Hi, I want a quote for a party / office biryani order. Date: , People: , Dishes: ')} data-evt="whatsapp_click">Get a quote on WhatsApp</a>
+        <a class="btn btn-line" href="/catering/">Catering details</a>
+      </div>
+    </aside>
+  </div>
+
+  <div id="mn-cart" class="mn-cart" hidden role="region" aria-label="Your order">
+    <div class="mn-cart-in">
+      <p class="mn-cart-sum"><b id="mn-cart-n">0</b> <span id="mn-cart-w">items</span> · <b id="mn-cart-t">₹0</b></p>
+      <button type="button" id="mn-cart-clear" class="mn-cart-clear">Clear</button>
+      <a id="mn-cart-go" class="btn btn-wa mn-cart-go" href={waLink()} target="_blank" rel="noopener" data-evt="order_click"><svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true" set:html={waIcon} />Send <span class="mn-lg">order </span>on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .mn{
+    --mn-bg:#3d070e; --mn-bg2:#5c0b14; --mn-panel:rgba(26,3,6,.38);
+    --mn-gold:#E9B94B; --mn-gold2:#C98F22; --mn-line:rgba(233,185,75,.5);
+    --mn-text:#FBEBCB; --mn-soft:#E7CFA3; --mn-ink:#3a0a10;
+    --mn-nav:64px; --mn-offset:128px;
+    position:relative;color:var(--mn-text);padding:1.25rem 0 5rem;
+    background:
+      radial-gradient(70% 40% at 15% 0%,rgba(201,60,50,.28),transparent 70%),
+      radial-gradient(60% 40% at 100% 30%,rgba(233,185,75,.10),transparent 70%),
+      linear-gradient(180deg,var(--mn-bg2),var(--mn-bg) 35%,#2c050a);
+  }
+  .mn::before{content:"";position:absolute;inset:0 0 auto;height:10px;opacity:.7;pointer-events:none;
+    background:repeating-linear-gradient(45deg,var(--mn-gold) 0 4px,transparent 4px 10px)}
+  .mn-wrap{max-width:80rem;margin-inline:auto;padding-inline:1.25rem}
+  @media (min-width:1024px){.mn-wrap{padding-inline:3rem}}
+  .mn *,.mn *::before,.mn *::after{box-sizing:border-box}
+  .sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  /* heading */
+  .mn-head{margin:1rem 0 1.5rem}
+  .mn-eyebrow{margin:0;color:var(--mn-gold);font-weight:700;font-size:.82rem;letter-spacing:.2em;text-transform:uppercase}
+  .mn-title{margin:.6rem 0 0;line-height:1;color:var(--mn-gold);font-weight:400}
+  .mn-script{font-family:var(--font-display,Georgia,serif);font-style:italic;font-weight:600;font-size:clamp(2.6rem,9vw,4.6rem);
+    background:none;color:var(--mn-gold);text-shadow:0 2px 0 rgba(0,0,0,.25)}
+  .mn-branch{display:inline-block;font-family:var(--font-body,system-ui,sans-serif);font-weight:700;font-size:clamp(1rem,3vw,1.5rem);letter-spacing:.4em;text-transform:uppercase;color:var(--mn-text)}
+  .mn-kn{font-family:var(--font-kn,system-ui,sans-serif);font-weight:700;font-size:1.15rem;color:var(--mn-gold);margin:.7rem 0 0}
+  .mn-sub{margin:.6rem 0 0;max-width:62ch;color:var(--mn-soft);font-size:1rem}
+
+  /* filter pills */
+  .mn-tabs{position:sticky;top:var(--mn-nav);z-index:30;background:rgba(36,4,8,.96);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+    border-block:1px solid var(--mn-line);transition:top .3s cubic-bezier(.2,.7,.2,1)}
+  .mn-tabs-in{display:flex;gap:.5rem;max-width:80rem;margin-inline:auto;padding:.55rem 1.25rem;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain}
+  .mn-tabs-in::-webkit-scrollbar{display:none}
+  @media (min-width:1024px){.mn-tabs-in{padding-inline:3rem}}
+  .mn-tab{flex:none;min-height:44px;padding:.45rem 1.05rem;border-radius:999px;border:1.5px solid var(--mn-line);background:transparent;color:var(--mn-text);
+    font:600 .95rem var(--font-body,inherit);cursor:pointer;white-space:nowrap;transition:background-color .2s,color .2s,border-color .2s,transform .15s}
+  .mn-tab:active{transform:scale(.96)}
+  .mn-tab[aria-pressed="true"]{background:var(--mn-gold);border-color:var(--mn-gold);color:var(--mn-ink)}
+  @media (hover:hover){.mn-tab[aria-pressed="false"]:hover{border-color:var(--mn-gold);color:var(--mn-gold)}}
+
+  /* panels laid out in two columns like the printed board */
+  .mn-cols{margin-top:2rem;display:grid;grid-template-columns:1fr;gap:0 1.75rem;align-items:start}
+  .mn-col{min-width:0}
+  @media (min-width:960px){.mn-cols{grid-template-columns:1fr 1fr}}
+  .mn[data-mn-filter]:not([data-mn-filter="all"]) .mn-cols{grid-template-columns:1fr;max-width:44rem;margin-inline:auto}
+  .mn-cat{break-inside:avoid;-webkit-column-break-inside:avoid;scroll-margin-top:var(--mn-offset);margin:0 0 2.1rem;padding:0 1rem .5rem;
+    border:1.5px solid var(--mn-line);border-radius:14px;background:var(--mn-panel);box-shadow:0 10px 30px rgba(0,0,0,.28)}
+  .mn-cat[hidden]{display:none}
+  .mn-cat-show{animation:mn-in .45s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes mn-in{from{opacity:0;transform:translateY(10px)}}
+
+  /* gold brush tab */
+  .mn-cat-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;margin:-1.1rem 0 .4rem -1.6rem}
+  .mn-cat-h{display:inline-flex;align-items:center;gap:.5rem;margin:0;padding:.45rem 2.6rem .45rem 1.1rem;
+    font-family:var(--font-display,Georgia,serif);font-weight:700;font-size:clamp(1.35rem,4vw,1.75rem);letter-spacing:.02em;text-transform:uppercase;line-height:1.1;
+    color:var(--mn-ink);background:linear-gradient(100deg,#F4CB63,var(--mn-gold) 55%,var(--mn-gold2));
+    clip-path:polygon(0 0,100% 0,calc(100% - 22px) 50%,100% 100%,0 100%);box-shadow:0 4px 10px rgba(0,0,0,.35)}
+  .mn-leaf{display:inline-flex}
+  .mn-note{padding:.2rem .65rem;border:1px solid var(--mn-gold);border-radius:999px;color:var(--mn-gold);font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+
+  /* numbered rows */
+  .mn-list{list-style:none;margin:0;padding:0;counter-reset:none}
+  .mn-row{display:flex;align-items:center;gap:.65rem;min-height:56px;padding:.4rem 0}
+  .mn-row+.mn-row{border-top:1px solid rgba(233,185,75,.18)}
+  .mn-no{flex:none;display:grid;place-items:center;width:2.1rem;height:2.1rem;border-radius:999px;font-weight:800;font-size:.95rem;line-height:1;font-variant-numeric:tabular-nums;
+    color:var(--mn-ink);background:radial-gradient(circle at 30% 25%,#F8D77C,var(--mn-gold) 60%,var(--mn-gold2));box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 2px 5px rgba(0,0,0,.35)}
+  .mn-thumb{flex:none;width:56px;height:56px;border-radius:12px;object-fit:cover;border:1.5px solid var(--mn-gold);background:var(--mn-bg)}
+  .mn-rname{flex:0 1 auto;min-width:0;display:flex;flex-direction:column}
+  .mn-name{font-family:var(--font-display,Georgia,serif);font-size:1.12rem;line-height:1.2;color:var(--mn-text);font-weight:500}
+  .mn-tag{margin-top:.15rem;color:var(--mn-gold);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+  .mn-kname{margin-top:.1rem;font-family:var(--font-kn,system-ui,sans-serif);font-size:.85rem;font-weight:700;color:var(--mn-soft)}
+  .mn-dots{flex:1 1 .75rem;min-width:.5rem;border-bottom:2px dotted rgba(233,185,75,.55);transform:translateY(.2rem)}
+  .mn-price{flex:none;color:var(--mn-gold);font-weight:800;font-size:1.25rem;font-variant-numeric:tabular-nums;margin:0}
+  .mn-add{flex:none;display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:60px;padding:.35rem .8rem;border-radius:10px;
+    border:1.5px solid var(--mn-gold);color:var(--mn-gold);font-weight:700;font-size:.9rem;transition:background-color .15s,color .15s,transform .15s}
+  .mn-add:active{transform:scale(.96)}
+  @media (hover:hover){.mn-add:hover{background:var(--mn-gold);color:var(--mn-ink)}}
+  .mn-add:focus-visible,.mn-tab:focus-visible{outline:3px solid #fff;outline-offset:2px}
+  @media (max-width:420px){.mn-row{gap:.5rem}.mn-add{min-width:50px;padding-inline:.5rem;font-size:.85rem}.mn-name{font-size:1.02rem}.mn-price{font-size:1.15rem}}
+
+  /* party band */
+  .mn-party{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.25rem;margin-top:1rem;padding:1.5rem;border-radius:14px;
+    border:1.5px solid var(--mn-line);background:rgba(20,2,5,.55)}
+  .mn-party-h{font-family:var(--font-display,Georgia,serif);font-weight:500;font-size:1.6rem;margin:0;color:var(--mn-text)}
+  .mn-party-kn{color:var(--mn-gold);font-size:1.05rem;margin-top:.4rem}
+  .mn-party-p{margin:.6rem 0 0;max-width:46ch;color:var(--mn-soft)}
+  .mn-party-act{display:flex;flex-wrap:wrap;gap:.75rem}
+
+  /* add / stepper */
+  button.mn-add{background:transparent;font-family:inherit;cursor:pointer}
+  .mn-ctl{flex:none;display:inline-flex;align-items:center}
+  .mn-step{display:inline-flex;align-items:center;border:1.5px solid var(--mn-gold);border-radius:10px;overflow:hidden;background:rgba(233,185,75,.12)}
+  .mn-step[hidden]{display:none}
+  .mn-step button{width:40px;min-height:44px;border:0;background:transparent;color:var(--mn-gold);font:700 1.4rem/1 var(--font-body,system-ui);cursor:pointer;transition:background-color .15s,color .15s,transform .15s}
+  .mn-step button:active{transform:scale(.94)}
+  @media (hover:hover){.mn-step button:hover{background:var(--mn-gold);color:var(--mn-ink)}}
+  .mn-step output{min-width:2ch;padding:0 .15rem;text-align:center;font-weight:800;font-size:1.1rem;color:var(--mn-text);font-variant-numeric:tabular-nums}
+  .mn-step button:focus-visible{outline:3px solid #fff;outline-offset:-3px}
+  .mn-row.in-cart .mn-add{display:none}
+  .mn-row.in-cart .mn-no{box-shadow:0 0 0 3px rgba(233,185,75,.35),0 2px 5px rgba(0,0,0,.35)}
+  @media (max-width:560px){
+    .mn-row{position:relative;display:grid;grid-template-columns:68px minmax(0,1fr) auto;column-gap:.7rem;row-gap:.3rem;align-items:center;padding:.65rem 0}
+    .mn-thumb{grid-column:1;grid-row:1/3;width:68px;height:68px}
+    .mn-no{position:absolute;left:-.3rem;top:.4rem;z-index:1;width:1.65rem;height:1.65rem;font-size:.78rem;margin:0}
+    .mn-rname{grid-column:2;grid-row:1/3}
+    .mn-dots{display:none}
+    .mn-price{grid-column:3;grid-row:1;justify-self:end}
+    .mn-ctl{grid-column:3;grid-row:2;justify-self:end}
+  }
+
+  /* sticky order bar */
+  .mn-cart{position:fixed;left:0;right:0;bottom:0;z-index:48;padding:.6rem 1rem calc(.6rem + env(safe-area-inset-bottom));background:#240408;border-top:2px solid var(--mn-gold);box-shadow:0 -10px 30px rgba(0,0,0,.45);transition:bottom .25s cubic-bezier(.16,1,.3,1)}
+  .mn-cart[hidden]{display:none}
+  .mn-cart-in{display:flex;align-items:center;gap:.75rem;max-width:80rem;margin-inline:auto}
+  .mn-cart-sum{margin:0;flex:1 1 auto;white-space:nowrap;color:var(--mn-text);font-size:1rem}
+  .mn-cart-sum b{color:var(--mn-gold);font-size:1.2rem;font-variant-numeric:tabular-nums}
+  .mn-cart-clear{flex:none;min-height:44px;padding:0 .8rem;background:transparent;border:0;color:var(--mn-soft);text-decoration:underline;font:600 .9rem var(--font-body,inherit);cursor:pointer}
+  .mn-cart-go{flex:none;min-height:48px}
+  .mn-cart-go:active{transform:scale(.97)}
+  @media (max-width:560px){.mn-cart-go{padding-inline:.9rem;font-size:.95rem}.mn-cart-clear,.mn-lg{display:none}}
+  @media (max-width:1023px){body.has-cart .wz{display:none}}
+  @media (min-width:1024px){body.has-cart .wz{bottom:5.5rem}}
+  body.has-cart{padding-bottom:4.5rem}
+
+  @media (prefers-reduced-motion:reduce){.mn-tabs,.mn-add,.mn-tab,.mn-cart,.mn-step button{transition:none}.mn-cat-show{animation:none}}
+  /* ===== v31: cream menu page, maroon/gold accents, arch dish photos ===== */
+  .mn{--mn-gold:#E0A940;--mn-gold2:#C58B2A;--mn-line:rgba(197,139,42,.7);--mn-ink:#27100C;--mn-text:#27100C;--mn-soft:#3B1B12;
+    background:#FDF6E6;color:#27100C}
+  .mn::before{background:repeating-linear-gradient(45deg,#C58B2A 0 4px,transparent 4px 10px);opacity:.55}
+  .mn-eyebrow{color:#9A4E1E}
+  .mn-title,.mn-script{color:#5A0F1A;text-shadow:none}
+  .mn-branch{color:#27100C}
+  .mn-kn,.mn-party-kn{color:#9A4E1E}
+  .mn-sub{color:#3B1B12}
+  .mn-tabs{background:rgba(253,246,230,.96);border-block:1px solid #C58B2A}
+  .mn-tab{color:#5A0F1A;border-color:#C58B2A}
+  .mn-tab[aria-pressed="true"]{background:#5A0F1A;border-color:#5A0F1A;color:#FFF3D9}
+  @media (hover:hover){.mn-tab[aria-pressed="false"]:hover{border-color:#5A0F1A;color:#5A0F1A;background:rgba(224,169,64,.2)}}
+  .mn-cat{background:#F5E8CC;border-color:#C58B2A;box-shadow:0 8px 22px rgba(43,5,9,.12)}
+  .mn-cat-h{background:#5A0F1A;color:#FFF3D9;box-shadow:0 4px 10px rgba(43,5,9,.3)}
+  .mn-note{border-color:#C58B2A;color:#9A4E1E}
+  .mn-row+.mn-row{border-top:1px solid rgba(154,78,30,.25)}
+  .mn-name{color:#27100C}
+  .mn-tag{color:#9A4E1E}
+  .mn-kname{color:#3B1B12}
+  .mn-dots{border-bottom-color:rgba(154,78,30,.5)}
+  .mn-price{color:#5A0F1A}
+  .mn-add{background:#E0A940;border-color:#C58B2A;color:#27100C}
+  button.mn-add{background:#E0A940}
+  @media (hover:hover){.mn-add:hover,button.mn-add:hover{background:#5A0F1A;color:#FFF3D9;border-color:#5A0F1A}}
+  .mn-add:focus-visible,.mn-tab:focus-visible{outline-color:#5A0F1A}
+  .mn-step{border-color:#C58B2A;background:rgba(224,169,64,.2)}
+  .mn-step button{color:#5A0F1A}
+  @media (hover:hover){.mn-step button:hover{background:#5A0F1A;color:#FFF3D9}}
+  .mn-step output{color:#27100C}
+  .mn-step button:focus-visible{outline-color:#5A0F1A}
+  .mn-row.in-cart .mn-no{box-shadow:0 0 0 3px rgba(90,15,26,.3),0 2px 5px rgba(0,0,0,.3)}
+  /* arch-shaped dish photo with gold outline */
+  .mn-thumb{width:64px;height:80px;border:2px solid #C58B2A;border-radius:50% 50% 8px 8px / 36% 36% 8px 8px;background:#2B0509;box-shadow:0 3px 8px rgba(43,5,9,.25)}
+  @media (max-width:560px){.mn-thumb{width:64px;height:80px;grid-row:1/3}.mn-row{grid-template-columns:64px minmax(0,1fr) auto}}
+  .mn-party{background:#5A0F1A;border-color:#C58B2A}
+  .mn-party-h{color:#FFF3D9}
+  .mn-party-kn{color:#E0A940}
+  .mn-party-p{color:#FFF3D9}
+  .mn-cart{--mn-text:#FFF3D9;--mn-soft:#FFF3D9;background:#2B0509;border-top-color:#E0A940}
+  .mn-cart-sum b{color:#E0A940}
+  /* v32: dish photos use the showcase's cut-shoulder arch, with a gold outline */
+  .mn-ph{position:relative;flex:none;display:block;width:84px;height:64px}
+  .mn-ph .mn-thumb{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:0;box-shadow:none;clip-path:url(#arch-clip)}
+  .mn-ol{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+  @media (max-width:560px){.mn-ph{grid-column:1;grid-row:1/3;width:76px;height:60px;align-self:center}.mn-row{grid-template-columns:76px minmax(0,1fr) auto}}
+</style>
+
+<script>
+  (function () {
+    const root = document.getElementById('mn-menu');
+    const tabsBar = document.getElementById('mn-tabs');
+    if (!root || !tabsBar) return;
+    const hdr = document.getElementById('hdr');
+    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('.mn-tab'));
+    const secs = Array.from(root.querySelectorAll<HTMLElement>('.mn-cat'));
+    const ids = secs.map((s) => s.dataset.mnCat);
+
+    /* sticky offset follows the nav, which hides on scroll-down */
+    const navH = () => (hdr && !hdr.classList.contains('away') ? hdr.offsetHeight : 0);
+    const setOffsets = () => {
+      const n = navH();
+      root.style.setProperty('--mn-nav', n + 'px');
+      root.style.setProperty('--mn-offset', n + tabsBar.offsetHeight + 8 + 'px');
+    };
+    if (hdr) new MutationObserver(setOffsets).observe(hdr, { attributes: true, attributeFilter: ['class'] });
+    addEventListener('resize', setOffsets);
+    setOffsets();
+
+    /* filter: 'all' or a category id */
+    const apply = (id: string) => {
+      if (id !== 'all' && !ids.includes(id)) id = 'all';
+      tabs.forEach((t) => t.setAttribute('aria-pressed', String(t.dataset.mnTab === id)));
+      root.dataset.mnFilter = id;
+      secs.forEach((s) => {
+        const show = id === 'all' || s.dataset.mnCat === id;
+        s.hidden = !show;
+        s.classList.remove('mn-cat-show');
+        if (show && !calm) { void s.offsetWidth; s.classList.add('mn-cat-show'); }
+      });
+      return id;
+    };
+
+    /* keep the pills in view after a filter change when the user has scrolled past the top of the menu */
+    const jumpToMenuTop = () => {
+      const body = document.getElementById('mn-body');
+      if (!body) return;
+      const y = body.getBoundingClientRect().top + scrollY - tabsBar.offsetHeight - 8;
+      if (scrollY <= y) return;
+      if (hdr) {
+        hdr.dataset.lock = '1';
+        hdr.classList.add('away');
+        setTimeout(() => { delete hdr.dataset.lock; }, 800);
+      }
+      scrollTo({ top: y, behavior: calm ? 'auto' : 'smooth' });
+    };
+
+    tabsBar.addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest<HTMLButtonElement>('.mn-tab');
+      if (!b) return;
+      const id = apply(b.dataset.mnTab || 'all');
+      history.replaceState(null, '', id === 'all' ? location.pathname + location.search : '#' + id);
+      jumpToMenuTop();
+    });
+
+    /* deep links from the home page tiles: /menu/#starters, /menu/#biriyani ... */
+    const fromHash = () => {
+      const id = decodeURIComponent(location.hash.slice(1));
+      if (!id || !ids.includes(id)) return false;
+      apply(id);
+      requestAnimationFrame(() => { setOffsets(); secs.find((s) => !s.hidden)?.scrollIntoView(); });
+      return true;
+    };
+    fromHash();
+    addEventListener('hashchange', () => { if (!fromHash() && !location.hash) apply('all'); });
+
+    /* ---- WhatsApp cart: quantities per item number, one message with a numbered list ---- */
+    const rows = Array.from(root.querySelectorAll<HTMLElement>('.mn-row'));
+    const info: Record<string, { name: string; price: number }> = {};
+    rows.forEach((r) => { info[r.dataset.no!] = { name: r.dataset.name!, price: Number(r.dataset.price) }; });
+    const WA = (document.getElementById('mn-cart-go') as HTMLAnchorElement).href.split('?')[0];
+    const cart = document.getElementById('mn-cart') as HTMLElement;
+    const go = document.getElementById('mn-cart-go') as HTMLAnchorElement;
+    const qbar = document.getElementById('qbar');
+    let q: Record<string, number> = {};
+    try { const saved = JSON.parse(sessionStorage.getItem('mn-cart') || '{}'); for (const k in saved) if (info[k] && saved[k] > 0) q[k] = Math.min(99, saved[k] | 0); } catch (_) {}
+    const lift = () => { cart.style.bottom = qbar && getComputedStyle(qbar).display !== 'none' && qbar.classList.contains('on') ? qbar.offsetHeight + 'px' : '0'; };
+    const render = () => {
+      let n = 0, t = 0; const lines: string[] = [];
+      rows.forEach((r) => {
+        const k = r.dataset.no!, c = q[k] || 0;
+        r.classList.toggle('in-cart', c > 0);
+        (r.querySelector('.mn-step') as HTMLElement).hidden = c === 0;
+        (r.querySelector('output') as HTMLOutputElement).textContent = String(c);
+        if (c > 0) { n += c; t += c * info[k].price; lines.push(`#${k} ${info[k].name} x${c} = ₹${c * info[k].price}`); }
+      });
+      cart.hidden = n === 0; document.body.classList.toggle('has-cart', n > 0);
+      (document.getElementById('mn-cart-n') as HTMLElement).textContent = String(n);
+      (document.getElementById('mn-cart-w') as HTMLElement).textContent = n === 1 ? 'item' : 'items';
+      (document.getElementById('mn-cart-t') as HTMLElement).textContent = '₹' + t;
+      const msg = 'ನಮಸ್ಕಾರ! Hi, I want to order:\n' + lines.join('\n') + `\nTotal: ₹${t} (GST as applicable)\nPickup or delivery?`;
+      go.href = WA + '?text=' + encodeURIComponent(msg);
+      try { sessionStorage.setItem('mn-cart', JSON.stringify(q)); } catch (_) {}
+      lift();
+    };
+    root.addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-act]');
+      if (!b) return;
+      const k = b.closest<HTMLElement>('.mn-row')!.dataset.no!;
+      const a = b.dataset.act;
+      if (a === 'add') q[k] = 1;
+      else if (a === 'inc') q[k] = Math.min(99, (q[k] || 0) + 1);
+      else if (a === 'dec') { q[k] = (q[k] || 0) - 1; if (q[k] <= 0) delete q[k]; }
+      render();
+      if (a === 'add') b.closest('.mn-row')!.querySelector<HTMLButtonElement>('[data-act="inc"]')?.focus({ preventScroll: true });
+      if (a === 'dec' && !q[k]) b.closest('.mn-row')!.querySelector<HTMLButtonElement>('[data-act="add"]')?.focus({ preventScroll: true });
+    });
+    document.getElementById('mn-cart-clear')!.addEventListener('click', () => { q = {}; render(); });
+    addEventListener('scroll', lift, { passive: true }); addEventListener('resize', lift);
+    render();
+
+    /* missing photo -> cream tile with a gold fork (error does not bubble, so use capture) */
+    const FORK = '<svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v7M4 3v5a3 3 0 0 0 6 0V3M7 11v10M17 3c-2 2-3 5-3 8h3v10"/></svg>';
+    const swap = (img: Element) => {
+      const f = document.createElement('div');
+      f.className = 'mn-fallback';
+      f.innerHTML = FORK;
+      img.replaceWith(f);
+    };
+    root.addEventListener('error', (e) => {
+      const t = e.target as HTMLElement;
+      if (t && t.classList && t.classList.contains('mn-img')) swap(t);
+    }, true);
+    root.querySelectorAll<HTMLImageElement>('.mn-img').forEach((im) => { if (im.complete && im.naturalWidth === 0) swap(im); });
+  })();
+</script>

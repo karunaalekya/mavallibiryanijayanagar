@@ -1,0 +1,52 @@
+{
+  "name": "Mavalli Biryani Jayanagar",
+  "domain": "mavallibiryanijayanagar.com",
+  "phone": null,
+  "whatsapp": "9663066999",
+  "hours": null,
+  "address": {
+    "line": "Site No. 926/61, 28th Main, 41st Cross, 9th Block, Jayanagar",
+    "city": "Bengaluru",
+    "pin": "560069",
+    "confirmed": true
+  },
+  "fssai": "21226193001815",
+  "email": "mavallibiryanijayanagar999@gmail.com",
+  "instagram": "https://www.instagram.com/mavallibiryani.jayanagar/",
+  "swiggy": null,
+  "zomato": null,
+  "mapsUrl": null,
+  "menuConfirmed": false,
+  "nav": [
+    [
+      "Home",
+      "/"
+    ],
+    [
+      "Menu",
+      "/menu/"
+    ],
+    [
+      "About Us",
+      "/about/"
+    ],
+    [
+      "Order Now",
+      "/order/"
+    ],
+    [
+      "Contact",
+      "/contact/"
+    ]
+  ],
+  "ga4": "G-VHKBGBHQ2C",
+  "gscVerify": null,
+  "bingVerify": null,
+  "legalName": null,
+  "gstin": null,
+  "grievanceOfficer": null,
+  "googleRating": null,
+  "googleReviews": null,
+  "googleReviewsUrl": null,
+  "googleReviewUrl": null
+}

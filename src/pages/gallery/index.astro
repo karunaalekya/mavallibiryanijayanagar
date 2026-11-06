@@ -1,0 +1,14 @@
+---
+import Base from '../../layouts/Base.astro';
+import menu from '../../data/menu.json';
+const dishes = menu.categories.filter((c: any) => c.id !== 'sunday-special').flatMap((c: any) => c.items.map((i: any) => ({ ...i, cat: c.name })));
+const ph = [['/img/hero-handi.webp','Mutton biryani in a copper handi with steam',900,534],['/img/dish-biryani-mutton.webp','Mutton biryani close up',640,483],['/img/dish-biryani-lid.webp','Biryani in a handi with brass lid',640,481],['/img/dish-green-curry.webp','Green masala curry',640,450]];
+---
+<Base solid title="Gallery | Mavalli Biryani Jayanagar" description="Photos from the Mavalli Biryani Jayanagar kitchen and table." crumbs={[['Gallery','/gallery/']]}>
+  <div class="mx-auto max-w-[1440px] px-5 lg:px-12 pb-20 pt-6"><h1 class="h-rule font-display text-4xl sm:text-5xl">From our kitchen</h1>
+    <ul class="mt-8 grid gap-4 sm:grid-cols-2">{ph.map(([s, a, w, h]) => <li class="card"><img src={s as string} alt={a as string} width={w as number} height={h as number} loading="lazy" class="aspect-[4/3] w-full object-cover"></li>)}</ul>
+    <h2 class="h-rule mt-14 font-display text-3xl sm:text-4xl">The menu in pictures</h2>
+    <p class="mt-3 max-w-[65ch]">Photos are for illustration. The dish served may look slightly different.</p>
+    <ul class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">{dishes.map((d: any) => <li class="card overflow-hidden"><a href={`/menu/#${d.cat.toLowerCase().replace(/[^a-z]+/g, '-')}`} class="block"><img src={`/img/dishes/${d.img}`} alt={d.name} width="600" height="600" loading="lazy" decoding="async" class="aspect-square w-full object-cover"><span class="block px-3 py-2 text-sm font-semibold leading-tight">{d.name}</span></a></li>)}</ul>
+    <p class="mt-8">More on <a class="underline" href="https://www.instagram.com/mavallibiryani.jayanagar/" rel="noopener" target="_blank">Instagram</a>.</p></div>
+</Base>

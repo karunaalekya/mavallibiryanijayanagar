@@ -1,0 +1,27 @@
+---
+import LegalDoc from '../../components/LegalDoc.astro';
+import { cfg, callNum } from '../../lib/site';
+const legal = cfg.legalName ?? cfg.name;
+const addr = `${cfg.address.line}, ${cfg.address.city} ${cfg.address.pin}`;
+const gr = cfg.grievanceOfficer ?? 'The Outlet Manager';
+---
+<LegalDoc title="Cookie Policy" description="Which cookies and browser storage Mavalli Biryani Jayanagar uses, and how to change your choice." path="/cookies/" crumb="Cookies">
+    <p>Cookies are small files that a website saves in your browser. This page lists what we use and how to change your choice. It forms part of our <a href="/privacy/">Privacy Policy</a>.</p>
+
+    <h2>1. Analytics is off until you accept</h2>
+    <p>When you first visit, a banner asks if we may use analytics cookies. Until you tap Accept, Google Analytics is not loaded and sets no cookies. Declining or ignoring the banner changes nothing about what you can see or order.</p>
+
+    <h2>2. What we use</h2>
+    <ul>
+      <li><b>Analytics cookies (only if you accept).</b> Google Analytics sets <code>_ga</code> and <code>_ga_*</code>. They last up to 2 years and tell us, without your name or number, which pages and buttons are used.</li>
+      <li><b>Your choice.</b> We save your Accept or Decline in your browser's local storage under <code>mb-consent</code>, so we do not ask on every visit. It stays until you clear your browser data.</li>
+      <li><b>Session storage.</b> The menu cart (<code>mn-cart</code>) and the chat helper's tip (<code>wz</code>) are kept for the current tab only and are cleared when you close it. They never leave your device.</li>
+    </ul>
+    <p>We do not use advertising or retargeting cookies.</p>
+
+    <h2>3. Change your choice</h2>
+    <p>You can change your mind at any time: <button type="button" class="legal-link" data-cookie-settings>Open cookie settings</button>. You can also delete cookies in your browser settings. After you decline, we stop analytics and remove the Google Analytics cookies we set.</p>
+    <h2>Grievance contact</h2>
+    <p>{gr}, {legal}, {addr}.<br />Email: <a href={`mailto:${cfg.email}`}>{cfg.email}</a>{callNum && <> · Phone / WhatsApp: +91 {callNum}</>}</p>
+    <p>We acknowledge every complaint within 48 hours and aim to resolve it within one month.</p>
+  </LegalDoc>

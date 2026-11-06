@@ -1,0 +1,42 @@
+---
+import LegalDoc from '../../components/LegalDoc.astro';
+import { cfg, callNum } from '../../lib/site';
+const legal = cfg.legalName ?? cfg.name;
+const addr = `${cfg.address.line}, ${cfg.address.city} ${cfg.address.pin}`;
+const gr = cfg.grievanceOfficer ?? 'The Outlet Manager';
+---
+<LegalDoc title="Refund and Cancellation Policy" description="When you can cancel an order at Mavalli Biryani Jayanagar and how refunds work." path="/refund/" crumb="Refund">
+    <p>This policy covers orders you place directly with {cfg.name} by call, WhatsApp, email or in person. Orders placed on Swiggy, Zomato or any other app follow that app's own cancellation and refund rules, because the app takes the payment.</p>
+
+    <h2>1. How you pay</h2>
+    <p>This website does not take payments. We tell you how to pay when we confirm your order. Refunds, where due, go back the way you paid.</p>
+
+    <h2>2. Cancelling an order</h2>
+    <ul>
+      <li><b>Before we start cooking:</b> you can cancel and we refund anything you paid in full.</li>
+      <li><b>After we start cooking:</b> we have already used the ingredients and fuel, so we may not be able to cancel or refund. Call or WhatsApp us straight away and we will do what we reasonably can.</li>
+      <li><b>Party and bulk orders:</b> the quote we send you states the advance and the last date for changes or cancellation. That quote applies.</li>
+      <li><b>If we cancel:</b> if we cannot make your order, for example a dish has run out or we are closed, we tell you and refund everything you paid.</li>
+    </ul>
+
+    <h2>2A. When something is wrong with your order</h2>
+    <p>Tell us as soon as you can, ideally within two hours of receiving it, and send a photo on WhatsApp if you can. We will check, and where the fault is ours we will, at your choice:</p>
+    <ul>
+      <li>replace the dish or send what is missing; or</li>
+      <li>refund the amount for the affected items.</li>
+    </ul>
+    <p>This applies if an item is missing, wrong, spoilt, not safe to eat, or very different from what you ordered. We cannot refund a dish only because it is spicier, milder or different from what you expected, but tell us and we will make a note for next time.</p>
+
+    <h2>3. How refunds are paid</h2>
+    <ul>
+      <li>UPI, bank or card payments go back to the same account or UPI ID. Your bank usually takes 5 to 7 working days to show it.</li>
+      <li>Cash payments are refunded in cash at the outlet, or by UPI if you prefer.</li>
+      <li>We confirm every refund by WhatsApp or email with the amount.</li>
+    </ul>
+
+    <h2>4. Your legal rights</h2>
+    <p>Nothing here limits your rights under the Consumer Protection Act, 2019 or any other law.</p>
+    <h2>Grievance contact</h2>
+    <p>{gr}, {legal}, {addr}.<br />Email: <a href={`mailto:${cfg.email}`}>{cfg.email}</a>{callNum && <> · Phone / WhatsApp: +91 {callNum}</>}</p>
+    <p>We acknowledge every complaint within 48 hours and aim to resolve it within one month.</p>
+  </LegalDoc>

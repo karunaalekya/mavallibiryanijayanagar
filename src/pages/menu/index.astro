@@ -1,0 +1,12 @@
+---
+import Base from '../../layouts/Base.astro';
+import MenuSection from '../../components/MenuSection.astro';
+import { cfg } from '../../lib/site';
+import menu from '../../data/menu.json';
+const site = Astro.site!;
+const ld = { '@context': 'https://schema.org', '@type': 'Menu', name: `${cfg.name} menu`, url: new URL('/menu/', site).href,
+  hasMenuSection: menu.categories.map(c => ({ '@type': 'MenuSection', name: c.name, hasMenuItem: c.items.map((i: any) => ({ '@type': 'MenuItem', name: i.name, ...(i.price ? { offers: { '@type': 'Offer', price: i.price, priceCurrency: 'INR' } } : {}) })) })) };
+---
+<Base solid title="Menu & Prices | Mavalli Biryani Jayanagar" description="Full menu with prices: mutton, chicken and egg biriyani, veg rice, starters, boneless starters, kaal soup and Sunday special at Mavalli Biryani Jayanagar. Order on WhatsApp." crumbs={[['Menu','/menu/']]} jsonld={[ld]}>
+  <MenuSection />
+</Base>

@@ -1,0 +1,16 @@
+---
+import Base from '../../layouts/Base.astro';
+import OrderButtons from '../../components/OrderButtons.astro';
+import { cfg } from '../../lib/site';
+---
+<Base solid title="Order Biryani in Jayanagar | Call or WhatsApp" description="Order Mavalli Biryani Jayanagar by call, WhatsApp or delivery apps. Pickup available." crumbs={[['Order','/order/']]}>
+  <div class="mx-auto max-w-3xl px-4 pb-20 pt-6">
+    <h1 class="h-rule font-display text-4xl sm:text-5xl">Order biryani in Jayanagar</h1>
+    <p class="mt-6">Choose how you want to order. Tell us the dish and how many people you are feeding.</p>
+    <div class="mt-6 rounded-2xl bg-ink p-4 sm:p-6"><OrderButtons /></div>
+    <h2 class="mt-12 font-display text-2xl">Pickup</h2>
+    <p class="mt-2">Collect from our outlet at {cfg.address.line}, {cfg.address.city} {cfg.address.pin}. See <a class="underline" href="/contact/">directions and hours</a>.</p>
+    <h2 class="mt-8 font-display text-2xl">Parties and offices</h2>
+    <p class="mt-2">For large orders use the <a class="underline" href="/catering/">catering page</a>.</p>
+  </div>
+</Base>

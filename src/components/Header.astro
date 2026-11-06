@@ -1,0 +1,112 @@
+---
+import { cfg, waLink } from '../lib/site';
+const path = Astro.url.pathname;
+const wa = waLink();
+const { solid = false } = Astro.props;
+const links = cfg.nav.filter(([l]: string[]) => l !== 'Order Now');
+const order = cfg.nav.find(([l]: string[]) => l === 'Order Now');
+---
+<header id="hdr" data-solid={solid ? "1" : undefined} class={`hdr fixed inset-x-0 top-0 z-40 text-ivory ${solid ? "solid" : ""}`}>
+  <div class="hdr-in mx-auto flex max-w-[1240px] items-start justify-between gap-3 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center">
+    <a href="/" aria-label={cfg.name} class="logo-badge"><span class="logo-art"><img src="/img/logo-sm.webp" alt="Mavalli Biryani, Taste of 1952" width="360" height="232" fetchpriority="low"><canvas id="logo-fx" class="logo-fx" aria-hidden="true"></canvas></span></a>
+    <a href="/" class="hdr-word" tabindex="-1" aria-hidden="true"><b>Mavalli Biryani</b><small>Jayanagar</small></a>
+    <nav class="hdr-nav hidden items-center justify-center gap-1 lg:col-start-2 lg:flex" aria-label="Main">
+      {links.map(([l,h]: string[]) => <a href={h} aria-current={path===h?'page':undefined} class="navlink">{l}</a>)}
+    </nav>
+    <div class="hidden justify-end lg:col-start-3 lg:flex">{order && <a href={order[1]} aria-current={path===order[1]?'page':undefined} class="btn btn-fire hdr-cta" data-evt="order_click">{order[0]}</a>}</div>
+    <details id="mnav" class="relative ml-auto mt-1 lg:hidden">
+      <summary class="burger" aria-label="Menu"><span></span><span></span><span></span></summary>
+      <nav class="mpanel" aria-label="Mobile">
+        {links.map(([l,h]: string[]) => <a href={h} aria-current={path===h?'page':undefined} class="mlink">{l}</a>)}
+        {order && <a href={order[1]} aria-current={path===order[1]?'page':undefined} class="mlink mlink-cta" data-evt="order_click">{order[0]}</a>}
+        <a href={wa} class="btn btn-wa mt-3 w-full" data-evt="whatsapp_click">Order on WhatsApp</a>
+      </nav>
+    </details>
+  </div>
+</header>
+<script>
+  const h = document.getElementById('hdr')!;
+  const d = document.getElementById('mnav') as HTMLDetailsElement;
+  let last = 0;
+  const on = () => {
+    const y = scrollY;
+    if (h.dataset.lock) { last = y; return; }   // menu tab jump in progress: keep nav state fixed
+    if (!h.dataset.solid) h.classList.toggle('solid', y > 40 || d.open);
+    h.classList.toggle('away', y > 300 && y > last + 4 && !d.open);
+    if (y < last - 4) h.classList.remove('away');
+    last = y;
+  };
+  addEventListener('scroll', on, { passive: true }); on();
+  d.addEventListener('toggle', on);
+  document.addEventListener('click', (e) => { if (d.open && !d.contains(e.target as Node)) d.open = false; });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && d.open) { d.open = false; d.querySelector('summary')!.focus(); } });
+  d.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { d.open = false; }));
+</script>
+
+<script>
+  // Live fire + smoke on the logo's handi. Canvas sits exactly over the logo art; coordinates are fractions of the logo image.
+  const cv = document.getElementById('logo-fx') as HTMLCanvasElement | null;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (cv && !still) {
+    const g = cv.getContext('2d')!;
+    let W = 0, H = 0, dpr = 1, raf = 0, last = 0, on = true;
+    const fit = () => { dpr = Math.min(devicePixelRatio || 1, 1.5); W = cv.clientWidth; H = cv.clientHeight; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); };
+    fit(); addEventListener('resize', fit);
+    type P = { x: number; y: number; vx: number; vy: number; life: number; age: number; r: number; ph: number };
+    const smoke: P[] = [], flame: P[] = [], spark: P[] = [];
+    const R = (a: number, b: number) => a + Math.random() * (b - a);
+    // anchors (fraction of logo): pot rim ~ (0.505, 0.17); fire bed ~ (0.505, 0.325)
+    const spawnSmoke = () => smoke.push({ x: R(.475, .53), y: R(.12, .155), vx: R(-.004, .006), vy: R(-.05, -.032), life: R(2, 3), age: 0, r: R(.014, .024), ph: R(0, 6.28) });
+    const spawnFlame = () => flame.push({ x: R(.455, .55), y: R(.235, .285), vx: R(-.01, .01), vy: R(-.17, -.1), life: R(.5, .9), age: 0, r: R(.016, .026), ph: R(0, 6.28) });
+    const spawnSpark = () => spark.push({ x: R(.47, .54), y: R(.2, .25), vx: R(-.04, .04), vy: R(-.28, -.15), life: R(.8, 1.5), age: 0, r: R(.004, .007), ph: R(0, 6.28) });
+    const mk = (n: number, fn: (c: CanvasRenderingContext2D, n: number) => void) => { const c = document.createElement('canvas'); c.width = c.height = n; fn(c.getContext('2d')!, n); return c; };
+    const rg = (c: CanvasRenderingContext2D, n: number, stops: [number, string][]) => { const q = c.createRadialGradient(n / 2, n / 2, 0, n / 2, n / 2, n / 2); stops.forEach(([o, col]) => q.addColorStop(o, col)); c.fillStyle = q; c.fillRect(0, 0, n, n); };
+    const glow = mk(64, (c, n) => rg(c, n, [[0, 'rgba(255,140,30,.9)'], [1, 'rgba(255,90,10,0)']]));
+    const smokeSp = mk(64, (c, n) => rg(c, n, [[0, 'rgba(255,248,240,1)'], [.6, 'rgba(235,225,220,.55)'], [1, 'rgba(230,220,215,0)']]));
+    const sparkSp = mk(16, (c, n) => rg(c, n, [[0, 'rgba(255,210,70,1)'], [.6, 'rgba(255,170,60,.8)'], [1, 'rgba(255,140,40,0)']]));
+    const flameSp = Array.from({ length: 6 }, (_, i) => { const k = i / 6; return mk(32, (c, n) => rg(c, n, [[0, `rgba(255,${Math.round(205 - k * 100)},${Math.round(70 - k * 60)},1)`], [.5, `rgba(255,${Math.round(150 - k * 70)},30,.6)`], [1, 'rgba(255,60,0,0)']])); });
+    let sAcc = 0, fAcc = 0, kAcc = 0;
+    const tick = (t: number) => {
+      raf = requestAnimationFrame(tick);
+      if (t - last < 40) return; const dt = Math.min((t - last) / 1000, .06); last = t;
+      if (!W || !H) { fit(); return; }
+      g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+      sAcc += dt * 3.2; while (sAcc > 1) { sAcc--; spawnSmoke(); }
+      fAcc += dt * 11; while (fAcc > 1) { fAcc--; spawnFlame(); }
+      kAcc += dt * 5; while (kAcc > 1) { kAcc--; spawnSpark(); }
+      // warm glow under the pot, pulses like real fire (sprite, not a fresh gradient per frame)
+      const pul = .55 + .25 * Math.sin(t / 130) + .15 * Math.sin(t / 53);
+      g.globalCompositeOperation = 'lighter';
+      g.globalAlpha = Math.min(1, pul * .35);
+      g.drawImage(glow, W * .5 - W * .13, H * .22 - W * .13, W * .26, W * .26);
+      for (let i = flame.length - 1; i >= 0; i--) {
+        const p = flame[i]; p.age += dt; if (p.age >= p.life) { flame.splice(i, 1); continue; }
+        const k = p.age / p.life; p.y += p.vy * dt; p.x += (p.vx + Math.sin(t / 90 + p.ph) * .012) * dt;
+        const rr = p.r * W * (1 - k * .7); g.globalAlpha = (1 - k) * .5;
+        g.drawImage(flameSp[Math.min(5, (k * 6) | 0)], p.x * W - rr * .7, p.y * H - rr * 1.5, rr * 1.4, rr * 3);
+      }
+      g.globalAlpha = 1;
+      for (let i = spark.length - 1; i >= 0; i--) {
+        const p = spark[i]; p.age += dt; if (p.age >= p.life) { spark.splice(i, 1); continue; }
+        const k = p.age / p.life; p.y += p.vy * dt; p.x += (p.vx + Math.sin(t / 160 + p.ph) * .03) * dt;
+        const rr = Math.max(.6, p.r * W); g.globalAlpha = (1 - k) * .95;
+        g.drawImage(sparkSp, p.x * W - rr, p.y * H - rr, rr * 2, rr * 2);
+      }
+      g.globalCompositeOperation = 'source-over';
+      for (let i = smoke.length - 1; i >= 0; i--) {
+        const p = smoke[i]; p.age += dt; if (p.age >= p.life) { smoke.splice(i, 1); continue; }
+        const k = p.age / p.life; p.y += p.vy * dt; p.x += (p.vx + Math.sin(t / 700 + p.ph) * .012) * dt;
+        const rr = (p.r + k * .03) * W; const edge = Math.min(1, Math.max(0, (p.y - .035) / .05));
+        const a = Math.sin(Math.PI * Math.min(1, k * 1.1)) * .72 * edge;
+        if (a <= .01) continue;
+        g.globalAlpha = a; g.drawImage(smokeSp, p.x * W - rr, p.y * H - rr, rr * 2, rr * 2);
+      }
+      g.globalAlpha = 1;
+    };
+    const go = () => { if (!raf && on && !document.hidden) { last = performance.now(); raf = requestAnimationFrame(tick); } };
+    const stop = () => { cancelAnimationFrame(raf); raf = 0; };
+    new IntersectionObserver(([e]) => { on = e.isIntersecting; on ? go() : stop(); }).observe(cv);
+    document.addEventListener('visibilitychange', () => document.hidden ? stop() : go());
+    addEventListener('load', () => setTimeout(() => ('requestIdleCallback' in window ? (window as any).requestIdleCallback(go, { timeout: 4000 }) : go()), 3500));
+  }
+</script>

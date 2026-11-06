@@ -1,0 +1,85 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import rozha from '@fontsource/fraunces/files/fraunces-latin-600-normal.woff2?url';
+import mukta from '@fontsource/dm-sans/files/dm-sans-latin-400-normal.woff2?url';
+import Welcome from '../components/Welcome.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import { cfg, waLink, telLink, dirLink, callNum } from '../lib/site';
+const { title, description, crumbs = [], jsonld = [], solid = false, noindex: forceNoindex = false } = Astro.props;
+const live = !!cfg.domain && cfg.domain !== 'YOUR-DOMAIN.com';
+const noindex = forceNoindex || !live;
+const site = Astro.site!;
+const url = new URL(Astro.url.pathname, site).href;
+const og = new URL('/og-image.jpg', site).href;
+const rest: Record<string, any> = {
+  '@context': 'https://schema.org', '@type': 'Restaurant', name: cfg.name, url: new URL('/', site).href,
+  image: og, logo: new URL('/img/logo.webp', site).href, servesCuisine: ['Biryani', 'Karnataka', 'South Indian'],
+  hasMenu: new URL('/menu/', site).href, email: cfg.email, sameAs: [cfg.instagram, cfg.swiggy, cfg.zomato].filter(Boolean),
+  address: { '@type': 'PostalAddress', streetAddress: cfg.address.line, addressLocality: cfg.address.city, addressRegion: 'Karnataka', postalCode: cfg.address.pin, addressCountry: 'IN' },
+};
+if (callNum) rest.telephone = `+91${callNum}`;
+const crumbLd = crumbs.length ? { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', site).href }, ...crumbs.map(([n, p]: string[], i: number) => ({ '@type': 'ListItem', position: i + 2, name: n, item: new URL(p, site).href }))] } : null;
+const ld = [rest, crumbLd, ...jsonld].filter(Boolean);
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{title}</title><meta name="description" content={description}>
+  <link rel="canonical" href={url}>
+  {Astro.url.pathname === "/" && <link rel="preload" as="image" href="/video/hero-biryani-poster.webp" fetchpriority="high">}
+  {noindex && <meta name="robots" content="noindex,follow">}
+  <noscript><style>[hidden]{display:none}.reveal,.rv{opacity:1!important;transform:none!important;clip-path:none!important}</style></noscript><link rel="preload" as="font" type="font/woff2" href={rozha} crossorigin><link rel="preload" as="font" type="font/woff2" href={mukta} crossorigin><link rel="icon" href="/favicon.png"><meta name="theme-color" content="#340A0A">
+  <meta property="og:type" content="website"><meta property="og:site_name" content={cfg.name}>
+  <meta property="og:title" content={title}><meta property="og:description" content={description}>
+  <meta property="og:url" content={url}><meta property="og:image" content={og}>
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}><meta name="twitter:image" content={og}>
+  {cfg.gscVerify && <meta name="google-site-verification" content={cfg.gscVerify}>}
+  {cfg.bingVerify && <meta name="msvalidate.01" content={cfg.bingVerify}>}
+  {cfg.ga4 && <script is:inline set:html={`(function(){var ID='${cfg.ga4}',K='mb-consent',L=0;window.dataLayer=window.dataLayer||[];function g(){dataLayer.push(arguments)}window.gtag=g;g('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});function load(){if(L)return;L=1;var s=document.createElement('script');s.async=1;s.src='https://www.googletagmanager.com/gtag/js?id='+ID;document.head.appendChild(s);g('js',new Date());g('config',ID)}function wipe(){var h=location.hostname,d=[h,'.'+h,'.'+h.replace(/^www\\./,'')];document.cookie.split(';').forEach(function(c){var n=c.split('=')[0].trim();if(n==='_ga'||n.indexOf('_ga_')===0)d.concat('').forEach(function(x){document.cookie=n+'=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/'+(x?';domain='+x:'')})})}window.__mbConsent=function(v){try{localStorage.setItem(K,v)}catch(e){}if(v==='granted'){g('consent','update',{analytics_storage:'granted'});load()}else{g('consent','update',{analytics_storage:'denied'});wipe()}};var c=null;try{c=localStorage.getItem(K)}catch(e){}if(c==='granted'){g('consent','update',{analytics_storage:'granted'});addEventListener('load',function(){setTimeout(load,1200)})}})()`} />}
+  <slot name="head" />
+  {ld.map(o => <script type="application/ld+json" set:html={JSON.stringify(o)} />)}
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><clipPath id="arch-clip" clipPathUnits="objectBoundingBox"><path d="M0,1 L0,.42 C0,.32 .035,.285 .095,.285 L.13,.285 C.19,.285 .205,.235 .245,.15 C.29,.05 .38,0 .5,0 C.62,0 .71,.05 .755,.15 C.795,.235 .81,.285 .87,.285 L.905,.285 C.965,.285 1,.32 1,.42 L1,1 Z"/></clipPath></defs></svg>
+  <a href="#main" class="skip">Skip to content</a>
+  <div id="pbar" class="pbar" aria-hidden="true"></div>
+  <Header solid={solid} />
+  <main id="main" tabindex="-1">
+    {crumbs.length > 0 && <nav aria-label="Breadcrumb" class="mx-auto max-w-[1440px] px-5 lg:px-12 pt-24 text-sm text-bark/90"><a href="/" class="underline">Home</a> / <span aria-current="page">{crumbs[crumbs.length - 1][0]}</span></nav>}
+    <slot />
+  </main>
+  <Footer />
+  <nav id="qbar" class="qbar fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 bg-ink text-center text-sm font-semibold text-ivory lg:hidden" aria-label="Quick actions">
+    <a class="py-3" href={telLink} data-evt="call_click">Call</a><a class="py-3" href={waLink()} data-evt="whatsapp_click">WhatsApp</a><a class="py-3" href="/menu/" data-evt="menu_view">Menu</a><a class="py-3" href={dirLink} target="_blank" rel="noopener" data-evt="directions_click">Directions</a>
+  </nav>
+  <Welcome />
+  <CookieBanner />
+  <script>
+    const pb = document.getElementById('pbar')!; let pt = false;
+    addEventListener('scroll', () => { if (pt) return; pt = true; requestAnimationFrame(() => { pb.style.transform = `scaleX(${scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight)})`; pt = false; }); }, { passive: true });
+    if (matchMedia('(hover:hover)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll<HTMLElement>('.tilt').forEach(el => {
+        el.addEventListener('pointermove', (e) => { const r = el.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; el.style.transform = `perspective(700px) rotateX(${-y * 6}deg) rotateY(${x * 8}deg) translateY(-4px)`; });
+        el.addEventListener('pointerleave', () => { el.style.transform = ''; });
+      });
+    }
+    const qb = document.getElementById('qbar');
+    if (qb) { const t = () => qb.classList.toggle('on', scrollY > 420); addEventListener('scroll', t, { passive: true }); t(); }
+    document.addEventListener('click', (e) => {
+      const a = (e.target as HTMLElement).closest('[data-evt]') as HTMLElement | null; if (!a) return;
+      const name = a.dataset.evt!; const w = window as any;
+      (w.dataLayer = w.dataLayer || []).push({ event: name });
+      if (typeof w.gtag === 'function') w.gtag('event', name);
+    });
+    const io = new IntersectionObserver((es) => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: .2 });
+    document.querySelectorAll('.reveal, .rv:not(.rv-clip)').forEach(el => io.observe(el));
+    // clip-path hides an element from IntersectionObserver, so watch the parent for clipped reveals
+    const cio = new IntersectionObserver((es) => es.forEach(en => { if (en.isIntersecting) { (en.target as any)._c.forEach((c: Element) => c.classList.add('in')); cio.unobserve(en.target); } }), { threshold: .25 });
+    document.querySelectorAll('.rv-clip').forEach(el => { const p = el.parentElement!; ((p as any)._c ||= []).push(el); cio.observe(p); });
+  </script>
+</body>
+</html>

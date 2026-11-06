@@ -1,0 +1,12 @@
+---
+import Base from '../../layouts/Base.astro';
+import OrderButtons from '../../components/OrderButtons.astro';
+---
+<Base solid title="Bulk Biryani & Party Orders in Jayanagar" description="Order Mavalli biryani for parties and offices in Jayanagar, Bengaluru. Call or WhatsApp for a quote." crumbs={[['Catering','/catering/']]}>
+  <div class="mx-auto max-w-3xl px-4 pb-20 pt-6"><h1 class="h-rule font-display text-4xl sm:text-5xl">Biryani for parties and offices</h1>
+    <p class="mt-6">Feeding a crowd? We cook wood-fire biryani in copper handis for birthdays, family gatherings and office lunches in and around Jayanagar.</p>
+    <h2 class="mt-8 font-display text-2xl">What to send us</h2>
+    <p class="mt-2">The date and time, the number of people, the dishes you want, and the delivery address or pickup. We will reply with a quote.</p>
+    <div class="mt-6 rounded-2xl bg-ink p-4 sm:p-6"><OrderButtons msg="Hi, I want a quote for a party / office biryani order. Date: , People: , Dishes: " /></div>
+  </div>
+</Base>

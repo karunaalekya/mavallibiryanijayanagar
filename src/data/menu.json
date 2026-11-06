@@ -1,0 +1,248 @@
+{
+  "categories": [
+    {
+      "id": "biriyani",
+      "name": "Biriyani",
+      "items": [
+        {
+          "name": "Mutton Biriyani",
+          "price": 350,
+          "kn": "ಮಟನ್ ಬಿರಿಯಾನಿ",
+          "img": "mutton-biryani.webp",
+          "badge": "Best Seller"
+        },
+        {
+          "name": "Chicken Biriyani",
+          "price": 250,
+          "kn": "ಚಿಕನ್ ಬಿರಿಯಾನಿ",
+          "img": "chicken-biryani.webp",
+          "badge": "Best Seller"
+        },
+        {
+          "name": "Egg Biriyani",
+          "price": 200,
+          "kn": "ಎಗ್ ಬಿರಿಯಾನಿ",
+          "img": "egg-biryani.webp"
+        },
+        {
+          "name": "Biriyani Rice",
+          "price": 180,
+          "img": "biryani-rice.webp"
+        },
+        {
+          "name": "Kabab Biriyani",
+          "price": 300,
+          "kn": "ಕಬಾಬ್ ಬಿರಿಯಾನಿ",
+          "img": "kabab-biryani.webp"
+        },
+        {
+          "name": "Lollipop Biriyani",
+          "price": 350,
+          "img": "lollipop-biryani.webp"
+        }
+      ]
+    },
+    {
+      "id": "veg",
+      "name": "Veg",
+      "veg": true,
+      "items": [
+        {
+          "name": "Veg Fried Rice",
+          "price": 180,
+          "img": "veg-fried-rice.webp"
+        },
+        {
+          "name": "Mushroom Fried Rice",
+          "price": 220,
+          "img": "mushroom-fried-rice.webp"
+        },
+        {
+          "name": "Jeera Rice",
+          "price": 200,
+          "kn": "ಜೀರಾ ರೈಸ್",
+          "img": "jeera-rice.webp"
+        },
+        {
+          "name": "Curd Rice",
+          "price": 150,
+          "img": "curd-rice.webp"
+        }
+      ]
+    },
+    {
+      "id": "veg-starter",
+      "name": "Veg Starter",
+      "veg": true,
+      "items": [
+        {
+          "name": "Akki Rotti",
+          "price": 40,
+          "kn": "ಅಕ್ಕಿ ರೊಟ್ಟಿ",
+          "img": "akki-rotti.webp"
+        },
+        {
+          "name": "Mushroom Pepper Dry",
+          "price": 280,
+          "img": "mushroom-pepper-dry.webp"
+        },
+        {
+          "name": "Paneer Chilly",
+          "price": 280,
+          "img": "paneer-chilly.webp"
+        }
+      ]
+    },
+    {
+      "id": "beverages",
+      "name": "Beverages",
+      "items": [
+        {
+          "name": "Water Bottle (1 Ltr)",
+          "price": 20,
+          "img": "water-bottle-1-litre.webp"
+        },
+        {
+          "name": "Water Bottle (½ Ltr)",
+          "price": 10,
+          "img": "water-bottle-half-litre.webp"
+        },
+        {
+          "name": "Coca-Cola (250 mL)",
+          "price": 25,
+          "img": "coca-cola-250ml.webp"
+        },
+        {
+          "name": "Sprite (250 mL)",
+          "price": 25,
+          "img": "sprite-250ml.webp"
+        },
+        {
+          "name": "Goli Soda (All Flavours)",
+          "price": 60,
+          "img": "goli-soda-all-flavours.webp"
+        }
+      ]
+    },
+    {
+      "id": "non-veg-starter",
+      "name": "Non-Veg Starter",
+      "items": [
+        {
+          "name": "Chicken Kabab",
+          "price": 220,
+          "kn": "ಚಿಕನ್ ಕಬಾಬ್",
+          "img": "chicken-kabab.webp"
+        },
+        {
+          "name": "Chicken Lollipop",
+          "price": 260,
+          "img": "chicken-lollipop.webp"
+        },
+        {
+          "name": "Chicken Fry",
+          "price": 230,
+          "img": "chicken-fry.webp"
+        },
+        {
+          "name": "Mutton Fry",
+          "price": 350,
+          "img": "mutton-fry.webp"
+        },
+        {
+          "name": "Mutton Chops",
+          "price": 350,
+          "kn": "ಮಟನ್ ಚಾಪ್ಸ್",
+          "img": "mutton-chops.webp",
+          "badge": "Signature"
+        },
+        {
+          "name": "Naty Koli Fry",
+          "price": 300,
+          "kn": "ನಾಟಿ ಕೋಳಿ ಫ್ರೈ",
+          "img": "naty-koli-fry.webp"
+        },
+        {
+          "name": "Chilli Chicken (A/S)",
+          "price": 260,
+          "img": "chilli-chicken.webp"
+        },
+        {
+          "name": "Drumstick Chicken Fry",
+          "price": 260,
+          "img": "drumstick-chicken-fry.webp"
+        }
+      ]
+    },
+    {
+      "id": "boneless-starter",
+      "name": "Boneless Starter",
+      "items": [
+        {
+          "name": "Chicken 65 Boneless",
+          "price": 280,
+          "img": "chicken-65-boneless.webp"
+        },
+        {
+          "name": "Lemon Chicken Boneless",
+          "price": 280,
+          "img": "lemon-chicken-boneless.webp"
+        },
+        {
+          "name": "Shole Kabab Boneless",
+          "price": 280,
+          "img": "shole-kabab-boneless.webp"
+        },
+        {
+          "name": "Boneless Fish Kabab",
+          "price": 350,
+          "img": "boneless-fish-kabab.webp"
+        }
+      ]
+    },
+    {
+      "id": "soup",
+      "name": "Soup",
+      "items": [
+        {
+          "name": "Kaal Soup (1 Pcs)",
+          "price": 160,
+          "kn": "ಕಾಲ್ ಸೂಪ್",
+          "img": "kaal-soup.webp",
+          "badge": "Best Seller"
+        },
+        {
+          "name": "Plain Soup",
+          "price": 80,
+          "kn": "ಪ್ಲೈನ್ ಸೂಪ್",
+          "img": "plain-soup.webp"
+        }
+      ]
+    },
+    {
+      "id": "sunday-special",
+      "name": "Sunday Special",
+      "note": "Sundays only",
+      "items": [
+        {
+          "name": "Thatte Idly (1 Pcs)",
+          "price": 40,
+          "kn": "ತಟ್ಟೆ ಇಡ್ಲಿ",
+          "img": "thatte-idly.webp"
+        },
+        {
+          "name": "Kaal Soup (1 Pcs)",
+          "price": 170,
+          "kn": "ಕಾಲ್ ಸೂಪ್",
+          "img": "kaal-soup-sunday-special.webp"
+        },
+        {
+          "name": "Plain Soup",
+          "price": 70,
+          "kn": "ಪ್ಲೈನ್ ಸೂಪ್",
+          "img": "plain-soup-sunday-special.webp"
+        }
+      ]
+    }
+  ]
+}

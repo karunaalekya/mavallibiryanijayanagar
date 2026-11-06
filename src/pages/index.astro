@@ -1,0 +1,88 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Reels from '../components/Reels.astro';
+import Reviews from '../components/Reviews.astro';
+import OrderChannels from '../components/OrderChannels.astro';
+import menu from '../data/menu.json';
+import { faq } from '../lib/faq';
+import { cfg, waLink, telLink, callNum, dirLink, waIcon } from '../lib/site';
+const rank: Record<string, number> = { 'Best Seller': 0, 'Signature': 1, 'Combo': 2 };
+const igs = Array.from({ length: 10 }, (_, i) => `k${String(i).padStart(2, '0')}`);
+const catImg: Record<string,string> = { biriyani: 'mutton-biryani.webp', 'non-veg-starter': 'mutton-chops.webp', 'boneless-starter': 'chicken-65-boneless.webp', veg: 'veg-fried-rice.webp', 'veg-starter': 'paneer-chilly.webp', soup: 'kaal-soup.webp', 'sunday-special': 'thatte-idly.webp', beverages: 'goli-soda-all-flavours.webp' };
+const catTiles = menu.categories.filter((c: any) => catImg[c.id]).map((c: any) => ({ id: c.id, name: c.name, img: catImg[c.id], count: c.items.length }));
+const top = menu.categories.flatMap((c: any) => c.items).filter((i: any) => i.badge && i.img).sort((a: any, b: any) => rank[a.badge] - rank[b.badge]).slice(0, 4);
+const points = [
+  ['Wood fire', 'Every handi is cooked slowly over wood fire, not gas.'],
+  ['Our own masala', 'The spice blend is the outlet recipe, ground and mixed for biryani.'],
+  ['Karnataka style', 'Jeera samba rice and green masala, the way Mavalli has done it since 1952.'],
+];
+const icons: Record<string,string> = {'Wood fire': '<path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-4-1-6 1-9Z"/>', 'Our own masala': '<path d="M12 3c4 3 6 7 4 12-1 3-3 5-4 6-1-1-3-3-4-6-2-5 0-9 4-12Z"/>', 'Karnataka style': '<path d="M5 19c0-9 6-14 15-14 0 9-5 15-14 15M5 19c3-4 6-7 10-9"/>'};
+const homeFaq = faq.slice(0, 5);
+---
+<Base title="Mavalli Biryani Jayanagar | Wood-Fire Biryani Bengaluru" description="Wood-fire Karnataka biryani in Jayanagar, Bengaluru. Taste of 1952. Call, WhatsApp or order online.">
+  <link slot="head" rel="preload" as="image" href="/video/hero-biryani-poster.webp" fetchpriority="high">
+  <Hero />
+  <section class="trust" aria-label="Why Mavalli"><ul class="trust-in">
+    <li><svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-4-1-6 1-9Z"/></svg><span>Wood-Fire<br class="sm:hidden"> Flavour</span></li>
+    <li><svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.1 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8Z"/></svg><span>Since<br class="sm:hidden"> 1952</span></li>
+    <li><svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor" aria-hidden="true"><path d="M7 2v9a2 2 0 0 0 1 1.7V22h2V12.7A2 2 0 0 0 11 11V2h-1.2v6H9V2H8v6h-.8V2ZM16 2c-2 1.500-3 4-3 7 0 2 1 3 2.500 3.300V22H17V2Z"/></svg><span>Authentic<br class="sm:hidden"> Karnataka Taste</span></li>
+  </ul></section>
+  <section class="band band-cream" aria-labelledby="top-h"><div class="mx-auto max-w-[1440px] px-5 py-14 lg:px-12 lg:py-16">
+    <h2 id="top-h" class="brush font-display rv rv-up">Our Signature Dishes</h2><p lang="kn" class="mt-2 text-center font-kn font-bold">ಹೆಚ್ಚು ಮಾರಾಟವಾಗುವ ಖಾದ್ಯಗಳು</p>
+    <ul class="sig mt-9">
+      {top.map((x: any) => <li class="reveal"><article class="sig-card">
+        <div class="sig-top"><div class="sig-img"><img src={`/img/dishes/${x.img}`} alt={x.name} width="600" height="600" loading="lazy"><span class="tsbadge">{x.badge}</span></div><svg class="sig-ol" viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0,1 L0,.42 C0,.32 .035,.285 .095,.285 L.13,.285 C.19,.285 .205,.235 .245,.15 C.29,.05 .38,0 .5,0 C.62,0 .71,.05 .755,.15 C.795,.235 .81,.285 .87,.285 L.905,.285 C.965,.285 1,.32 1,.42 L1,1 Z" fill="none" stroke="#C58B2A" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linejoin="round"/></svg></div>
+        <div class="sig-plate"><h3 class="font-display">{x.name}</h3><p lang="kn" class="font-kn sig-kn">{x.kn}</p><div class="sig-row"><p class="sig-price">₹{x.price}</p>
+        <a href={waLink(`ನಮಸ್ಕಾರ! Hi, I want to order ${x.name} (₹${x.price})`)} class="btn btn-wa sig-btn" data-evt="order_click">Order <span aria-hidden="true">→</span></a></div></div>
+      </article></li>)}
+    </ul>
+    <p class="mt-9 text-center"><a href="/menu/" class="btn btn-fire" data-evt="menu_view">View full menu <span aria-hidden="true">→</span></a></p>
+  </div></section>
+  <section class="legacy band band-maroon" aria-labelledby="leg-h"><div class="legacy-in mx-auto max-w-[1440px] px-5 lg:px-12">
+    <div class="leg-img arch-img rv rv-clip"><img src="/img/dish-biryani-lid.webp" srcset="/img/dish-biryani-lid-480.webp 480w, /img/dish-biryani-lid.webp 640w" sizes="(max-width:1024px) 92vw, 460px" alt="Biryani in a hammered copper handi with brass lid" width="640" height="481" loading="lazy"></div>
+    <div class="leg-copy"><h2 id="leg-h" class="leg-h font-display">A legacy of flavour since 1952</h2>
+      <p lang="kn" class="font-kn leg-kn">೧೯೫೨ ರ ರುಚಿ, ಈಗ ಜಯನಗರದಲ್ಲಿ</p>
+      <p class="leg-p">From our kitchen to your heart, a timeless tradition of wood-fire biryani, now at our Jayanagar outlet.</p>
+      <a href="/about/" class="btn btn-wa">Our Story <span aria-hidden="true">→</span></a></div>
+  </div></section>
+  <section class="band band-cream py-14 lg:py-16" aria-labelledby="cat-h"><div class="mx-auto max-w-[1440px] px-5 lg:px-12">
+    <h2 id="cat-h" class="brush font-display rv rv-up">Our Menu</h2><p lang="kn" class="mt-2 text-center font-kn font-bold">ನಮ್ಮ ಮೆನು</p>
+    <ul class="catgrid mt-8">{catTiles.map((c: any, i: number) => <li><a href={`/menu/#${c.id}`} class="cat tilt" data-evt="menu_view"><img src={`/img/dishes/${c.img}`} alt="" width="600" height="600" loading="lazy"><span class="cat-sh"></span><span class="cat-t"><b class="font-display">{c.name}</b><small>{c.count} {c.count === 1 ? 'dish' : 'dishes'}</small></span></a></li>)}</ul>
+  </div></section>
+  <Reels />
+  <section class="proc band-cream" aria-labelledby="proc-h"><div class="mx-auto max-w-[1440px] px-5 py-20 lg:px-12">
+    <h2 id="proc-h" class="brush font-display rv rv-up">From fire to plate</h2><p lang="kn" class="mt-2 text-center font-kn font-bold">ಬೆಂಕಿಯಿಂದ ತಟ್ಟೆಗೆ</p>
+    <ol class="steps rv rv-line mt-10"><li class="stp rv rv-up"><span class="stp-n font-display">1</span><h3 class="font-display text-xl">Wood fire lit</h3><p>The fire comes first. Every handi is cooked over wood, not gas.</p></li>
+      <li class="stp rv rv-up"><span class="stp-n font-display">2</span><h3 class="font-display text-xl">Our masala</h3><p>The outlet's own spice blend, ground and mixed for biryani.</p></li>
+      <li class="stp rv rv-up"><span class="stp-n font-display">3</span><h3 class="font-display text-xl">Rice and meat, layered</h3><p>Jeera samba rice and tender chicken or mutton go into a copper handi.</p></li>
+      <li class="stp rv rv-up"><span class="stp-n font-display">4</span><h3 class="font-display text-xl">Slow cook, served hot</h3><p>Slow heat does the rest. It goes from handi to your plate or parcel.</p></li></ol>
+  </div></section>
+  <section class="gal" aria-labelledby="gal-h"><div class="mx-auto flex max-w-[1440px] flex-wrap items-end justify-between gap-4 px-5 pt-16 lg:px-12"><div><h2 id="gal-h" class="brush brush-l font-display rv rv-up">From our kitchen</h2><p lang="kn" class="mt-3 font-kn font-bold text-copper">ನಮ್ಮ ಅಡುಗೆಮನೆಯಿಂದ</p></div><a href={cfg.instagram} target="_blank" rel="noopener" class="btn btn-fire" data-evt="instagram_click">Follow @mavallibiryani.jayanagar</a></div>
+    <div class="gal-rail mt-8"><ul class="gal-set">{igs.map((n: string) => <li><img src={`/img/kitchen/${n}.webp`} alt="Mavalli Biryani dish from our Jayanagar kitchen" width="520" height="520" loading="lazy"></li>)}</ul><ul class="gal-set" aria-hidden="true">{igs.map((n: string) => <li><img src={`/img/kitchen/${n}.webp`} alt="" width="520" height="520" loading="lazy"></li>)}</ul></div>
+  </section>
+  <section class="party party-c band-cream" aria-labelledby="party-h"><div class="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-6 px-5 py-12 lg:px-12">
+    <div><h2 id="party-h" class="font-display text-3xl sm:text-4xl rv rv-left">Party or office order?</h2><p lang="kn" class="mt-2 font-kn text-xl font-bold">ಪಾರ್ಟಿ ಅಥವಾ ಆಫೀಸ್ ಆರ್ಡರ್?</p><p class="mt-3 max-w-[48ch]">Tell us the date, number of people and dishes. We reply on WhatsApp with a quote.</p></div>
+    <div class="flex flex-wrap gap-3"><a href={waLink('ನಮಸ್ಕಾರ! Hi, I want a quote for a party / office biryani order. Date: , People: , Dishes: ')} class="btn btn-wa" data-evt="whatsapp_click">Get a quote on WhatsApp</a><a href="/catering/" class="btn btn-line">Catering details</a></div>
+  </div></section>
+  <section class="bg-ink cta text-ivory" aria-labelledby="ob"><div class="mx-auto grid max-w-[1440px] items-center gap-8 px-5 lg:px-12 lg:grid-cols-[1fr_1.1fr]">
+    <div><h2 id="ob" class="reveal font-display text-3xl sm:text-5xl">Get your biryani fix.</h2>
+      <p lang="kn" class="reveal mt-3 font-kn text-xl font-bold text-gold">ಈಗಲೇ ಆರ್ಡರ್ ಮಾಡಿ</p>
+      <p class="mt-3 max-w-[44ch] text-cream/90">Order by WhatsApp or call. Pickup from Jayanagar is always open to you.</p></div>
+    <OrderChannels id="home" />
+    </div>
+    <div class="mx-auto max-w-[1440px] px-5 text-center lg:px-12"><p lang="kn" class="reveal tag font-kn font-bold text-gold" style="font-size:clamp(1.8rem,5vw,3.6rem);line-height:1.1">ತಿಂದು ತೇಗಿ...!</p></div></section>
+  <Reviews />
+  <section class="bg-card py-14" id="find" aria-labelledby="find-h"><div class="mx-auto grid max-w-[1440px] items-center gap-8 px-5 lg:grid-cols-[1.2fr_1fr] lg:px-12">
+    <div><h2 id="find-h" class="brush brush-l font-display">Find us in Jayanagar</h2><p lang="kn" class="mt-3 font-kn font-bold text-copper">ನಮ್ಮನ್ನು ಹುಡುಕಿ</p>
+      <address class="mt-5 max-w-[46ch] text-lg not-italic">{cfg.address.line}, {cfg.address.city} {cfg.address.pin}</address>
+      <p class="mt-2 text-bark/80">{cfg.hours ?? "Message us on WhatsApp to confirm today's timings."}</p></div>
+    <div class="flex flex-wrap gap-3 lg:justify-end"><a href={dirLink} target="_blank" rel="noopener" class="btn btn-fire" data-evt="directions_click">Get directions</a>{callNum && <a href={telLink} class="btn btn-line !border-copper !text-bark" data-evt="call_click">Call hotel</a>}<a href={waLink()} class="btn btn-wa" data-evt="whatsapp_click">WhatsApp</a></div>
+  </div></section>
+  <section class="mx-auto max-w-[1440px] px-5 lg:px-12 py-16">
+    <h2 class="brush brush-l font-display">Good to know</h2>
+    <div class="faq-grid mt-5">{homeFaq.map(([q, a]) => <details class="card p-4"><summary class="flex items-center justify-between gap-4 font-semibold">{q}<span class="plus text-2xl text-copper" aria-hidden="true">+</span></summary><p class="mt-3">{a}</p></details>)}</div>
+    <p class="mt-5"><a href="/faq/" class="inline-block py-2.5 font-semibold underline decoration-copper decoration-2 underline-offset-4">More answers</a> · <a href="/catering/" class="inline-block py-2.5 font-semibold underline decoration-copper decoration-2 underline-offset-4">Party and office orders</a></p>
+  </section>
+
+</Base>

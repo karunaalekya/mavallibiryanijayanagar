@@ -1,0 +1,25 @@
+---
+import { cfg } from '../lib/site';
+---
+{cfg.ga4 && <div id="consent" class="consent" role="region" aria-label="Cookie choice" hidden>
+  <p>We would like to use analytics cookies to see which pages help customers. They stay off unless you accept. <a href="/cookies/">Cookie Policy</a></p>
+  <div class="consent-act"><button type="button" class="c-no" data-consent="denied">Decline</button><button type="button" class="c-yes" data-consent="granted">Accept</button></div>
+</div>}
+<script>
+  const box = document.getElementById('consent');
+  if (box) {
+    let c: string | null = null;
+    try { c = localStorage.getItem('mb-consent'); } catch (_) {}
+    const w = window as any;
+    if (c !== 'granted' && c !== 'denied') box.hidden = false;
+    box.addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest<HTMLElement>('[data-consent]');
+      if (!b) return;
+      if (w.__mbConsent) w.__mbConsent(b.dataset.consent);
+      box.hidden = true;
+    });
+    document.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('[data-cookie-settings]')) { box.hidden = false; box.querySelector<HTMLElement>('.c-yes')?.focus(); }
+    });
+  }
+</script>

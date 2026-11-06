@@ -1,0 +1,15 @@
+---
+import Base from '../../layouts/Base.astro';
+import { cfg, telLink, dirLink, callNum } from '../../lib/site';
+---
+<Base solid title="Contact, Hours & Directions | Mavalli Biryani Jayanagar" description="Find Mavalli Biryani in Jayanagar: address, opening hours, phone and directions." crumbs={[['Contact','/contact/']]}>
+  <div class="mx-auto max-w-3xl px-4 pb-20 pt-6"><h1 class="h-rule font-display text-4xl sm:text-5xl">Visit us in Jayanagar</h1>
+    <h2 class="mt-8 font-display text-2xl">Address</h2>
+    <address class="mt-2 not-italic">{cfg.name}<br>{cfg.address.line}<br>{cfg.address.city} {cfg.address.pin}</address>
+    <p class="mt-4"><a href={dirLink} rel="noopener" target="_blank" class="btn btn-fire" data-evt="directions_click">Get directions</a></p>
+    <h2 class="mt-8 font-display text-2xl">Opening hours</h2>
+    <p class="mt-2">{cfg.hours ?? "Message us on Instagram or email to confirm today's timings."}</p>
+    <h2 class="mt-8 font-display text-2xl">Reach us</h2>
+    <ul class="mt-2 space-y-1">{callNum && <li>Call hotel: <a class="underline" href={telLink} data-evt="call_click">+91 {callNum}</a></li>}<li>Email: <a class="underline" href={`mailto:${cfg.email}`}>{cfg.email}</a></li><li>Instagram: <a class="underline" href={cfg.instagram} rel="noopener" target="_blank">@mavallibiryani.jayanagar</a></li></ul>
+  </div>
+</Base>

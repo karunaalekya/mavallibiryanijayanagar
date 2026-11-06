@@ -1,0 +1,46 @@
+---
+import LegalDoc from '../../components/LegalDoc.astro';
+import { cfg, callNum } from '../../lib/site';
+const legal = cfg.legalName ?? cfg.name;
+const addr = `${cfg.address.line}, ${cfg.address.city} ${cfg.address.pin}`;
+const gr = cfg.grievanceOfficer ?? 'The Outlet Manager';
+---
+<LegalDoc title="Terms of Use" description="Terms for using the Mavalli Biryani Jayanagar website and ordering from the outlet." path="/terms/" crumb="Terms">
+    <p>By using this website you agree to these terms. If you do not agree, please do not use the site. These terms are an electronic record under the Information Technology Act, 2000 and need no signature.</p>
+
+    <h2>1. About this site</h2>
+    <p>This website belongs to {legal}, the Jayanagar outlet of Mavalli Biryani, at {addr}. It is for this outlet only. It is not the website of any other Mavalli Biryani outlet or of the head office.</p>
+
+    <h2>2. Menu, prices and availability</h2>
+    <p>Prices are in Indian rupees. GST is charged as applicable. Dishes can sell out, and some items are served only on certain days, for example the Sunday specials. Prices and timings can change, so please confirm when you order. If a price shown here differs from the one we confirm when you order, the confirmed price applies.</p>
+
+    <h2>3. Orders</h2>
+    <p>You can order by call, WhatsApp, on Swiggy or Zomato when live, or in person. This website does not take payment and the cart only prepares a WhatsApp message. An order is accepted only when we confirm it to you. Orders on Swiggy and Zomato follow those apps' terms, prices and delivery charges. Cancellations and refunds are covered in our <a href="/refund/">Refund and Cancellation Policy</a>.</p>
+
+    <h2>4. Food safety and allergies</h2>
+    <p>Our kitchen handles meat, dairy, nuts, gluten and spices, so we cannot promise that any dish is free of an allergen. If you have an allergy, tell us before you order. Our FSSAI licence number is {cfg.fssai}.</p>
+
+    <h2>5. Photos</h2>
+    <p>Photos on this website are for illustration. The dish served may look slightly different in portion, garnish or colour.</p>
+
+    <h2>6. Intellectual property</h2>
+    <p>The Mavalli Biryani name, logo and "Taste of 1952" line belong to their owners and are used here by the Jayanagar outlet. The website's text, photos and design belong to {legal} or its designers. Please do not copy or reuse them without our written permission.</p>
+
+    <h2>7. Acceptable use</h2>
+    <p>Please do not misuse the site: no attempts to break or overload it, no scraping, no false orders or complaints, and no use of the site for anything unlawful.</p>
+
+    <h2>8. Other websites</h2>
+    <p>Links to WhatsApp, Instagram, Google Maps, Swiggy and Zomato lead to services we do not control. Their terms and privacy policies apply there.</p>
+
+    <h2>9. Our responsibility</h2>
+    <p>We try to keep this site accurate and available, but we cannot promise it is always complete, current or free of errors. To the extent the law allows, we are not liable for loss that comes only from using the website. Nothing here limits your rights under the Consumer Protection Act, 2019 or any other law that cannot be limited by agreement.</p>
+
+    <h2>10. Governing law</h2>
+    <p>Indian law governs these terms. Courts at Bengaluru, Karnataka have jurisdiction, without taking away any right you have to approach a consumer commission where you live or buy.</p>
+
+    <h2>11. Changes</h2>
+    <p>We may update these terms. The version on this page, with its date, is the one that applies.</p>
+    <h2>Grievance contact</h2>
+    <p>{gr}, {legal}, {addr}.<br />Email: <a href={`mailto:${cfg.email}`}>{cfg.email}</a>{callNum && <> · Phone / WhatsApp: +91 {callNum}</>}</p>
+    <p>We acknowledge every complaint within 48 hours and aim to resolve it within one month.</p>
+  </LegalDoc>

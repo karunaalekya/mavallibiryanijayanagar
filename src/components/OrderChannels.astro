@@ -1,0 +1,14 @@
+---
+// One order flow, used everywhere: WhatsApp, Call, delivery apps (only once their URL is in outlet.config.json), Pickup.
+import { cfg, waLink, telLink, callNum, dirLink, waIcon, brandIcon } from '../lib/site';
+const { msg = 'ನಮಸ್ಕಾರ! Hi, I want to order biryani', id = 'ch' } = Astro.props;
+const apps = (['zomato', 'swiggy'] as const).filter((k) => cfg[k]);
+---
+<div class="chan" data-ch={id}>
+  <a href={waLink(msg)} class="obtn obtn-wa" data-evt="whatsapp_click"><span class="flex items-center gap-3"><svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true" set:html={waIcon} /><span>WhatsApp<small>ವಾಟ್ಸಾಪ್ · Fastest way to order</small></span></span><span aria-hidden="true">→</span></a>
+  {callNum && <a href={telLink} class="obtn obtn-call" data-evt="call_click"><span>Call hotel staff<small>ಕರೆ ಮಾಡಿ · +91 {callNum}</small></span><span aria-hidden="true">→</span></a>}
+  {apps.length > 0 && <div class="grid gap-3 sm:grid-cols-2">
+    {apps.map((k) => <a href={cfg[k]} target="_blank" rel="noopener" class={`obtn obtn-brand obtn-${k}`} data-evt={`${k}_click`}><span class="flex items-center gap-3"><Fragment set:html={brandIcon[k]} /><span><span class="wm">{k}</span><i class="pill">Delivery</i></span></span><span aria-hidden="true">→</span></a>)}
+  </div>}
+  <a href={dirLink} target="_blank" rel="noopener" class="obtn" style="border:1.5px solid var(--color-gold);color:var(--color-gold)" data-evt="directions_click"><span>Pickup from Jayanagar<small>{cfg.address.line}</small></span><span aria-hidden="true">→</span></a>
+</div>

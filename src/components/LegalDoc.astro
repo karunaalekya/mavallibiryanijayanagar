@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+const { title, description, path, crumb, updated = '6 November 2026' } = Astro.props;
+---
+<Base solid title={`${title} | Mavalli Biryani Jayanagar`} description={description} crumbs={[[crumb ?? title, path]]}>
+  <article class="legal mx-auto max-w-3xl px-4 pb-24 pt-6">
+    <h1 class="h-rule font-display text-3xl sm:text-5xl">{title}</h1>
+    <p class="legal-meta">Last updated: {updated}</p>
+    <slot />
+  </article>
+</Base>
