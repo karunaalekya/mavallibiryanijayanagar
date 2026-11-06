@@ -8,7 +8,7 @@ const order = cfg.nav.find(([l]: string[]) => l === 'Order Now');
 ---
 <header id="hdr" data-solid={solid ? "1" : undefined} class={`hdr fixed inset-x-0 top-0 z-40 text-ivory ${solid ? "solid" : ""}`}>
   <div class="hdr-in mx-auto flex max-w-[1240px] items-start justify-between gap-3 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center">
-    <a href="/" aria-label={cfg.name} class="logo-badge"><span class="logo-art"><img src="/img/logo-sm.webp" alt="Mavalli Biryani, Taste of 1952" width="360" height="232" fetchpriority="low"><canvas id="logo-fx" class="logo-fx" aria-hidden="true"></canvas></span></a>
+    <a href="/" aria-label={cfg.name} class="logo-badge"><span class="logo-art"><img src="/img/logo.webp" srcset="/img/logo-sm.webp 360w, /img/logo.webp 720w" sizes="(min-width:1024px) 13rem, 40vw" alt="Mavalli Biryani, Taste of 1952" width="720" height="463" fetchpriority="high"><canvas id="logo-fx" class="logo-fx" aria-hidden="true"></canvas></span></a>
     <a href="/" class="hdr-word" tabindex="-1" aria-hidden="true"><b>Mavalli Biryani</b><small>Jayanagar</small></a>
     <nav class="hdr-nav hidden items-center justify-center gap-1 lg:col-start-2 lg:flex" aria-label="Main">
       {links.map(([l,h]: string[]) => <a href={h} aria-current={path===h?'page':undefined} class="navlink">{l}</a>)}
@@ -49,7 +49,7 @@ const order = cfg.nav.find(([l]: string[]) => l === 'Order Now');
     const g = cv.getContext('2d')!;
     // TUNE THESE: positions as fractions of the logo image (0..1)
     const POT  = { x: .505, y: .17, w: .13 };   // biryani handi rim: steam starts here
-    const FIRE = { x: .505, y: .33, w: .17 };   // wood sticks: flames start here
+    const FIRE = { x: .505, y: .335, w: .2 };   // wood sticks: flames start here
     const TOP = .26;                            // canvas extends 26% above the logo (matches CSS)
     let W = 0, H = 0, dpr = 1, last = 0, acc = 0, raf = 0;
     const fit = () => { dpr = Math.min(devicePixelRatio || 1, 1.5); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; };
@@ -64,10 +64,10 @@ const order = cfg.nav.find(([l]: string[]) => l === 'Order Now');
       if (document.hidden || !W) return;
       const dt = Math.min((t - last) / 1000 || .016, .05); last = t;
       acc += dt;
-      for (; acc > 0.03; acc -= 0.03) {
-        flames.push({ x: X(FIRE.x + R(-FIRE.w / 2, FIRE.w / 2)), y: Y(FIRE.y + R(-.01, .01)), vx: R(-6, 6) * W / 200, vy: -R(.12, .22) * H, age: 0, life: R(.5, .9), r: R(.025, .045) * W, ph: R(0, 6.3) });
-        if (Math.random() < .55) steam.push({ x: X(POT.x + R(-POT.w / 2, POT.w / 2)), y: Y(POT.y), vx: 0, vy: -R(.07, .12) * H, age: 0, life: R(2, 3.2), r: R(.02, .035) * W, ph: R(0, 6.3) });
-        if (Math.random() < .12) sparks.push({ x: X(FIRE.x + R(-FIRE.w / 2, FIRE.w / 2)), y: Y(FIRE.y), vx: R(-10, 10) * W / 200, vy: -R(.2, .4) * H, age: 0, life: R(.6, 1.1), r: R(.004, .008) * W, ph: 0 });
+      for (; acc > 0.022; acc -= 0.022) {
+        flames.push({ x: X(FIRE.x + R(-FIRE.w / 2, FIRE.w / 2)), y: Y(FIRE.y + R(-.01, .01)), vx: R(-6, 6) * W / 200, vy: -R(.05, .1) * H, age: 0, life: R(.35, .6), r: R(.022, .04) * W, ph: R(0, 6.3) });
+        if (Math.random() < .55) steam.push({ x: X(POT.x + R(-POT.w / 2, POT.w / 2)), y: Y(POT.y), vx: 0, vy: -R(.05, .09) * H, age: 0, life: R(2, 3), r: R(.012, .02) * W, ph: R(0, 6.3) });
+        if (Math.random() < .22) sparks.push({ x: X(FIRE.x + R(-FIRE.w / 2, FIRE.w / 2)), y: Y(FIRE.y), vx: R(-10, 10) * W / 200, vy: -R(.2, .4) * H, age: 0, life: R(.6, 1.1), r: R(.004, .008) * W, ph: 0 });
       }
       g.setTransform(dpr, 0, 0, dpr, 0, 0);
       g.clearRect(0, 0, W, H);
@@ -78,7 +78,7 @@ const order = cfg.nav.find(([l]: string[]) => l === 'Order Now');
         if (p.age > p.life) { steam.splice(i, 1); continue; }
         const k = p.age / p.life;
         p.x += Math.sin(p.age * 2 + p.ph) * .02 * W * dt * 3; p.y += p.vy * dt;
-        const r = p.r * (1 + k * 2.2), a = Math.sin(Math.PI * k) * .28;
+        const r = p.r * (1 + k * 2.2), a = Math.sin(Math.PI * k) * .3;
         const gr = g.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
         gr.addColorStop(0, `rgba(255,255,255,${a})`); gr.addColorStop(1, 'rgba(255,255,255,0)');
         g.fillStyle = gr; g.beginPath(); g.arc(p.x, p.y, r, 0, 6.283); g.fill();
@@ -89,7 +89,7 @@ const order = cfg.nav.find(([l]: string[]) => l === 'Order Now');
         if (p.age > p.life) { flames.splice(i, 1); continue; }
         const k = p.age / p.life;
         p.x += (p.vx + Math.sin(p.age * 14 + p.ph) * W * .02) * dt; p.y += p.vy * dt;
-        const r = p.r * (1 - k * .7), a = (1 - k) * .75;
+        const r = p.r * (1 - k * .6), a = (1 - k) * .85;
         const gr = g.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
         gr.addColorStop(0, `rgba(255,${Math.round(240 - 120 * k)},${Math.round(130 - 110 * k)},${a})`);
         gr.addColorStop(.5, `rgba(255,${Math.round(150 - 90 * k)},20,${a * .6})`);
