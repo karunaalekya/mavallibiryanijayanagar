@@ -881,3 +881,57 @@ main>section.py-16:last-of-type,main>section:last-of-type{padding-block:var(--se
 @media (min-width:900px){.faq-grid{grid-template-columns:1fr 1fr;align-items:start;gap:.7rem 1.25rem}}
 .faq-grid details{padding:.7rem 1rem}
 main>section.mx-auto{padding-block:var(--sec-y)}
+
+/* ===== v38 ===== */
+
+/* Signature dish cards come towards the visitor */
+.sig,.sig>li{overflow:visible}
+.sig>li{position:relative;z-index:0}
+.sig>li:hover,.sig>li:focus-within{z-index:20}
+.sig .sig-card{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;transform-origin:50% 55%;will-change:transform}
+@media (hover:hover){.sig .sig-card:hover{transform:translateY(-12px) scale(1.12);box-shadow:0 30px 55px rgba(20,2,4,.6)}}
+.sig .sig-card:focus-within{transform:translateY(-12px) scale(1.12);box-shadow:0 30px 55px rgba(20,2,4,.6)}
+@media (hover:none){.sig .sig-card:active{transform:scale(1.07)}}
+@media (prefers-reduced-motion:reduce){.sig .sig-card{transition:none}.sig .sig-card:hover{transform:none}}
+
+/* Coming-soon dock + dialog */
+.soon-dock{position:fixed;z-index:35;display:flex;gap:.5rem;left:.6rem;bottom:5.2rem}
+.soon-dock .brand{border:0;cursor:pointer;min-height:44px;font-family:inherit}
+.soon-dock .brand em,.brand .pill{font-style:normal;font-size:.68rem;font-weight:700;padding:.15rem .45rem;border-radius:6px;background:rgba(40,6,8,.45);color:#fff}
+@media (min-width:1024px){.soon-dock{flex-direction:column;left:auto;right:1rem;bottom:50%;transform:translateY(50%)}}
+.soon{border:0;padding:0;border-radius:18px;max-width:min(92vw,380px);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.soon::backdrop{background:rgba(30,4,6,.65);backdrop-filter:blur(3px)}
+.soon-head{padding:1.4rem;text-align:center;color:#fff;background:linear-gradient(135deg,#EF4F5F,#E23744 45%,#CB202D)}
+.soon[data-brand=swiggy] .soon-head{background:linear-gradient(135deg,#FF9A3D,#FC8019 50%,#F26A10)}
+.soon-brand{font-size:2.2rem;font-weight:800;text-transform:lowercase;letter-spacing:-.01em}
+.soon[data-brand=zomato] .soon-brand{font-style:italic}
+.soon-body{padding:1.3rem 1.4rem 1.2rem;text-align:center;background:#FFF8EB;color:#3A2A24}
+.soon-body h2{font-size:1.6rem;font-weight:800;margin:0 0 .3rem}
+.soon[data-brand=zomato] h2{color:#E23744}.soon[data-brand=swiggy] h2{color:#FC8019}
+.soon-wa{display:block;margin-top:1rem;padding:.8rem;border-radius:12px;background:#25D366;color:#fff;font-weight:700}
+.soon-x{margin-top:.6rem;padding:.5rem 1rem;background:none;border:0;font-weight:600;cursor:pointer;color:inherit}
+
+/* Header: bigger logo + wordmark, room for fire and steam above the handi */
+:root{--logo-h:clamp(5.6rem,27vw,7.2rem)}
+.logo-art{position:relative;display:block;overflow:visible}
+.logo-fx{position:absolute;left:0;top:-26%;width:100%;height:126%;pointer-events:none}
+.hdr .logo-badge img{filter:drop-shadow(0 4px 8px rgba(0,0,0,.5))}
+@media (max-width:1023px){
+  .hdr-word b{font-size:clamp(.82rem,calc((100vw - var(--logo-h)*1.57 - 104px)/6.6),1.5rem)}
+  .hdr-word small{font-size:.72rem}
+  .hdr,.hdr.solid{padding-top:.35rem}
+  .hdr-in{min-height:calc(var(--logo-h) + .9rem)}
+  .logo-badge{left:.4rem}
+  .hero-grid,main nav[aria-label="Breadcrumb"]{padding-top:calc(var(--logo-h) + 3.4rem)}
+}
+@media (min-width:1024px){
+  :root{--hdr-h:7.4rem}
+  .hdr,.hdr.solid{padding-top:.5rem}
+  .hdr-in{min-height:var(--hdr-h);padding-left:15.2rem}
+  .hdr .logo-badge{left:1.3rem;top:.3rem}
+  .hdr .logo-badge img{height:8.6rem}
+  .hdr-word b{font-size:1.9rem}
+  .hdr-word small{font-size:.9rem;letter-spacing:.22em}
+  .hero-grid{padding-top:calc(var(--hdr-h) + 1.6rem)}
+}
+@media (min-width:1024px) and (max-width:1199px){.hdr-word b{font-size:1.6rem}.hdr-nav .navlink{padding:.55rem .7rem}}

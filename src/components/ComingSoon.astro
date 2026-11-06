@@ -1,0 +1,36 @@
+---
+import { waLink } from '../lib/site';
+const wa = waLink();
+---
+<!-- Always-visible Zomato + Swiggy dock (prominent on every page) -->
+<div class="soon-dock" aria-label="Order online">
+  <button type="button" class="brand brand-zomato" data-soon="zomato"><span class="wm">zomato</span><em>soon</em></button>
+  <button type="button" class="brand brand-swiggy" data-soon="swiggy"><span class="wm">swiggy</span><em>soon</em></button>
+</div>
+
+<dialog id="soon" class="soon" aria-labelledby="soon-t">
+  <div class="soon-head"><span id="soon-brand" class="soon-brand"></span></div>
+  <div class="soon-body">
+    <h2 id="soon-t">Coming soon!</h2>
+    <p>We're getting listed. <b>Stay tuned</b> for delivery on <span id="soon-name"></span>.</p>
+    <a href={wa} class="soon-wa" data-evt="whatsapp_click">Order on WhatsApp now</a>
+    <button type="button" class="soon-x" id="soon-close">Close</button>
+  </div>
+</dialog>
+
+<script>
+  const dlg = document.getElementById('soon') as HTMLDialogElement;
+  const sel = '.brand-zomato,.brand-swiggy,.obtn-zomato,.obtn-swiggy,[data-soon],a[data-evt="zomato_click"],a[data-evt="swiggy_click"]';
+  document.addEventListener('click', (e) => {
+    const el = (e.target as Element).closest(sel) as HTMLElement | null;
+    if (!el) return;
+    e.preventDefault(); e.stopPropagation();
+    const k = el.dataset.soon || (/zomato/.test(el.className + (el.getAttribute('data-evt') || '')) ? 'zomato' : 'swiggy');
+    dlg.dataset.brand = k;
+    (document.getElementById('soon-brand') as HTMLElement).textContent = k;
+    (document.getElementById('soon-name') as HTMLElement).textContent = k[0].toUpperCase() + k.slice(1);
+    dlg.showModal();
+  }, true);
+  document.getElementById('soon-close')!.addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+</script>

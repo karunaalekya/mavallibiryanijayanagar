@@ -2,9 +2,8 @@
 import Seal from './Seal.astro';
 import { cfg, waLink, telLink, callNum, waIcon, brandIcon, brandName } from '../lib/site';
 const wa = waLink();
-const chip = (k: string, label: string) => cfg[k]
-  ? `<a href="${cfg[k]}" target="_blank" rel="noopener" class="chip-app brand brand-${k}" aria-label="Order on ${label}" data-evt="${k}_click">${brandIcon[k]}<span class="wm">${brandName[k]}</span></a>`
-  : '';
+const chip = (k: string, label: string) =>
+  `<a href="${cfg[k] || '#'}" class="chip-app brand brand-${k}" data-soon="${k}" aria-label="${label} coming soon">${brandIcon[k]}<span class="wm">${brandName[k]}</span><em class="pill">soon</em></a>`;
 ---
 <section class="hero relative isolate overflow-hidden text-ivory" aria-label="Mavalli Biryani Jayanagar">
   <div class="hero-bg" aria-hidden="true"></div>
@@ -41,7 +40,7 @@ const chip = (k: string, label: string) => cfg[k]
         <a href="/menu/" class="btn btn-line" data-evt="menu_view">View Menu</a>
       </div>
       <div class="rise d3 mt-6 flex flex-wrap items-center gap-2 text-sm">
-        {(cfg.zomato || cfg.swiggy) && <span class="text-cream/80">Order on</span>}
+        <span class="text-cream/80">Order on</span>
         <Fragment set:html={chip('zomato', 'Zomato') + chip('swiggy', 'Swiggy')} />
         {callNum && <a href={telLink} class="chip-app plain" data-evt="call_click">Call hotel</a>}
         <span class="chip-app plain">Pickup available</span>
