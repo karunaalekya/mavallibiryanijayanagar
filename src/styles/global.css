@@ -1075,3 +1075,11 @@ main>section.mx-auto{padding-block:var(--sec-y)}
   .hdr-nav .navlink-order{grid-column:auto}
   .hdr.compact .hdr-nav .navlink{padding:.22rem .3rem;min-height:26px}
 }
+
+/* v47: zoom actually visible on phones */
+@media (max-width:1023px){
+  .catgrid{padding:1.6rem 1.25rem 2.2rem;margin-block:-1rem}
+  .cat.near{scale:1.12;z-index:20;box-shadow:0 22px 40px rgba(20,2,4,.55)}
+  .sig .sig-card.near{transform:translateY(-6px) scale(1.1);box-shadow:0 24px 44px rgba(20,2,4,.5)}
+  .sig,.sig>li{overflow:visible}
+}
