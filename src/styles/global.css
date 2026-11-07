@@ -1006,7 +1006,7 @@ main>section.mx-auto{padding-block:var(--sec-y)}
 .soon-dock.away{opacity:0;pointer-events:none;transform:translateY(14px)}
 @media (min-width:1024px){.soon-dock.away{transform:translate(130%,50%)}}
 @media (max-width:1023px){
-  #wz-ig,.wz-tip{display:none!important}          /* Instagram is in Reels + footer; bottom bar already has WhatsApp/Call */
+  .wz-tip{display:none!important}                  /* v49: Instagram button shown on phones again */
   .soon-dock{bottom:4.6rem}
   .soon-dock .brand{min-height:40px;font-size:.92rem}
 }
@@ -1082,4 +1082,13 @@ main>section.mx-auto{padding-block:var(--sec-y)}
   .cat.near{scale:1.12;z-index:20;box-shadow:0 22px 40px rgba(20,2,4,.55)}
   .sig .sig-card.near{transform:translateY(-6px) scale(1.1);box-shadow:0 24px 44px rgba(20,2,4,.5)}
   .sig,.sig>li{overflow:visible}
+}
+
+/* v48: hover zoom also for reduced-motion (gentle 1.05, short transition) */
+@media (prefers-reduced-motion:reduce){
+  .sig .sig-card,.cat{transition:transform .2s,scale .2s,box-shadow .2s}
+}
+@media (prefers-reduced-motion:reduce) and (hover:hover){
+  .sig .sig-card:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 22px 40px rgba(20,2,4,.45)}
+  .cat:hover{scale:1.05;z-index:20;box-shadow:0 18px 34px rgba(20,2,4,.45)}
 }
