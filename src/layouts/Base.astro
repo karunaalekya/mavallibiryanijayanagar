@@ -69,7 +69,7 @@ const ld = [rest, crumbLd, ...jsonld].filter(Boolean);
       });
     }
     if (matchMedia('(hover:none), (max-width:1023px)').matches) {
-      const near = new IntersectionObserver((es) => es.forEach(en => en.target.classList.toggle('near', en.isIntersecting)), { rootMargin: '-25% 0px -25% 0px', threshold: 0 });
+      const near = new IntersectionObserver((es) => es.forEach(en => en.target.classList.toggle('near', en.isIntersecting)), { rootMargin: '-47% 0px -47% 0px', threshold: 0 });
       document.querySelectorAll('.sig-card, .cat').forEach(el => near.observe(el));
     }
     document.addEventListener('click', (e) => {
