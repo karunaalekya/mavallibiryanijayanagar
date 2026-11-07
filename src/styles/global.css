@@ -1113,8 +1113,6 @@ main>section.mx-auto{padding-block:var(--sec-y)}
 .sig .sig-card:hover{transform:translateY(-12px) scale(1.12)!important;box-shadow:0 30px 55px rgba(20,2,4,.6)}
 .sig>li:has(.sig-card:hover){z-index:30}
 .cat:hover{scale:1.1!important;z-index:30;box-shadow:0 26px 48px rgba(20,2,4,.55)}
-/* DEBUG-HOVER: remove after test */
-.sig-card:hover,.cat:hover{outline:4px solid blue;outline-offset:9px}
 
 /* v54: Ownly brand (placeholder colours: black + yellow; swap for official brand colours) */
 .brand-ownly{background:linear-gradient(135deg,#2A2A2A,#111 55%,#000);color:#FFC800}
