@@ -1048,3 +1048,12 @@ main>section.mx-auto{padding-block:var(--sec-y)}
   .sig .sig-card.near{transform:scale(1.04)}
   .cat.near{scale:1.04}
 }
+
+/* v44: icon quick-links on the phone home page */
+.homelinks{background:var(--color-ivory);border-bottom:1px solid rgba(197,139,42,.35)}
+.homelinks ul{display:flex;gap:.6rem;overflow-x:auto;padding:.85rem 1.25rem;scrollbar-width:none;scroll-snap-type:x proximity}
+.homelinks ul::-webkit-scrollbar{display:none}
+.homelinks a{display:flex;flex-direction:column;align-items:center;gap:.35rem;min-width:4.7rem;padding:.65rem .5rem;border:1.5px solid var(--color-gold-b);border-radius:14px;background:var(--color-card);color:#5A0F1A;font-weight:700;font-size:.82rem;line-height:1.1;scroll-snap-align:start;transition:transform .15s}
+.homelinks a:active{transform:scale(.96)}
+.homelinks svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+@media (min-width:1024px){.homelinks{display:none}}
