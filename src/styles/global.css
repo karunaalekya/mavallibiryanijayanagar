@@ -1030,3 +1030,12 @@ main>section.mx-auto{padding-block:var(--sec-y)}
 }
 /* 5. hero action rows wrap cleanly */
 .hero [class*="chip"],.hero .brand{flex:none}
+
+/* v42: dish cards + menu tiles come toward the viewer (hover on desktop, centre-of-screen on touch) */
+.sig .sig-card.near{transform:translateY(-8px) scale(1.07);box-shadow:0 24px 44px rgba(20,2,4,.5)}
+.sig>li:has(.near){z-index:20}
+.cat{transition:scale .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+@media (hover:hover){.cat:hover{scale:1.1;z-index:20;box-shadow:0 26px 48px rgba(20,2,4,.55)}}
+.cat.near{scale:1.07;z-index:20;box-shadow:0 22px 40px rgba(20,2,4,.5)}
+.cat:focus-visible{scale:1.08;z-index:20}
+@media (prefers-reduced-motion:reduce){.cat,.cat.near,.cat:hover{scale:1;transition:none}.sig .sig-card.near{transform:none}}

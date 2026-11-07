@@ -68,6 +68,10 @@ const ld = [rest, crumbLd, ...jsonld].filter(Boolean);
         el.addEventListener('pointerleave', () => { el.style.transform = ''; });
       });
     }
+    if (matchMedia('(hover:none)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const near = new IntersectionObserver((es) => es.forEach(en => en.target.classList.toggle('near', en.isIntersecting)), { rootMargin: '-38% 0px -38% 0px', threshold: 0 });
+      document.querySelectorAll('.sig-card, .cat').forEach(el => near.observe(el));
+    }
     const qb = document.getElementById('qbar');
     if (qb) { const t = () => qb.classList.toggle('on', scrollY > 420); addEventListener('scroll', t, { passive: true }); t(); }
     document.addEventListener('click', (e) => {
