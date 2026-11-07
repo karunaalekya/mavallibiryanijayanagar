@@ -1039,3 +1039,12 @@ main>section.mx-auto{padding-block:var(--sec-y)}
 .cat.near{scale:1.07;z-index:20;box-shadow:0 22px 40px rgba(20,2,4,.5)}
 .cat:focus-visible{scale:1.08;z-index:20}
 @media (prefers-reduced-motion:reduce){.cat,.cat.near,.cat:hover{scale:1;transition:none}.sig .sig-card.near{transform:none}}
+
+/* v43: no floating delivery dock on phones (hero already has the Zomato/Swiggy buttons) */
+@media (max-width:1023px){.soon-dock{display:none!important}}
+/* zoom cards also for visitors with reduced motion: gentler, but still visible */
+@media (prefers-reduced-motion:reduce){
+  .sig .sig-card,.cat{transition:transform .2s,scale .2s,box-shadow .2s}
+  .sig .sig-card.near{transform:scale(1.04)}
+  .cat.near{scale:1.04}
+}
