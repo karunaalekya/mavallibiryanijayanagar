@@ -72,6 +72,11 @@ const ld = [rest, crumbLd, ...jsonld].filter(Boolean);
       const near = new IntersectionObserver((es) => es.forEach(en => en.target.classList.toggle('near', en.isIntersecting)), { rootMargin: '-25% 0px -25% 0px', threshold: 0 });
       document.querySelectorAll('.sig-card, .cat').forEach(el => near.observe(el));
     }
+    document.addEventListener('click', (e) => {
+      const c = (e.target as HTMLElement).closest('.sig-card');
+      document.querySelectorAll('.sig-card.sel').forEach(o => { if (o !== c) o.classList.remove('sel'); });
+      if (c) c.classList.add('sel');
+    });
     const qb = document.getElementById('qbar');
     if (qb) { const t = () => qb.classList.toggle('on', scrollY > 420); addEventListener('scroll', t, { passive: true }); t(); }
     document.addEventListener('click', (e) => {

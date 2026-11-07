@@ -1092,3 +1092,7 @@ main>section.mx-auto{padding-block:var(--sec-y)}
   .sig .sig-card:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 22px 40px rgba(20,2,4,.45)}
   .cat:hover{scale:1.05;z-index:20;box-shadow:0 18px 34px rgba(20,2,4,.45)}
 }
+
+/* v50: tap a dish card to lift + zoom it and keep it selected (same behaviour as Ruthu Thailam) */
+.sig .sig-card.sel{transform:translateY(-10px) scale(1.07)!important;box-shadow:0 28px 52px rgba(20,2,4,.5)}
+.sig>li:has(.sel){z-index:20}
