@@ -32,6 +32,12 @@ const order = cfg.nav.find(([l]: string[]) => l === 'Order Now');
     const y = scrollY;
     if (h.dataset.lock) { last = y; return; }   // menu tab jump in progress: keep nav state fixed
     if (!h.dataset.solid) h.classList.toggle('solid', y > 40 || d.open);
+    h.classList.toggle('compact', y > 120);
+    const dk = document.querySelector('.soon-dock');
+    if (dk) {
+      if (y <= 700 || y < last - 4 || innerHeight + y > document.documentElement.scrollHeight - 40) dk.classList.remove('away');
+      else if (y > last + 2) dk.classList.add('away');
+    }
     h.classList.toggle('away', y > 300 && y > last + 4 && !d.open);
     if (y < last - 4) h.classList.remove('away');
     last = y;
@@ -53,7 +59,7 @@ const order = cfg.nav.find(([l]: string[]) => l === 'Order Now');
     const TOP = .26;                            // canvas extends 26% above the logo (matches CSS)
     let W = 0, H = 0, dpr = 1, last = 0, acc = 0, raf = 0;
     const fit = () => { dpr = Math.min(devicePixelRatio || 1, 1.5); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; };
-    fit(); addEventListener('resize', fit);
+    fit(); new ResizeObserver(fit).observe(cv);
     const X = (f: number) => f * W, Y = (f: number) => ((f + TOP) / (1 + TOP)) * H;
     const R = (a: number, b: number) => a + Math.random() * (b - a);
     type P = { x: number; y: number; vx: number; vy: number; age: number; life: number; r: number; ph: number };

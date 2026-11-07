@@ -999,3 +999,34 @@ main>section.mx-auto{padding-block:var(--sec-y)}
   .hdr-word b{font-size:clamp(.78rem,calc((58vw - 128px)/6.75),1.22rem)}
 }
 @media (min-width:520px) and (max-width:1023px){.hdr-word b{font-size:1.55rem}}
+
+/* ---- v41: final polish — no floating clutter over content, compact sticky header, stagger, spacing ---- */
+/* 1. floating layers: dock slides away while reading (scroll down), returns on scroll up / at the top */
+.soon-dock{transition:opacity .25s,transform .3s cubic-bezier(.2,.7,.2,1)}
+.soon-dock.away{opacity:0;pointer-events:none;transform:translateY(14px)}
+@media (min-width:1024px){.soon-dock.away{transform:translate(130%,50%)}}
+@media (max-width:1023px){
+  #wz-ig,.wz-tip{display:none!important}          /* Instagram is in Reels + footer; bottom bar already has WhatsApp/Call */
+  .soon-dock{bottom:4.6rem}
+  .soon-dock .brand{min-height:40px;font-size:.92rem}
+}
+/* 2. compact header once the page is scrolled: less screen eaten, logo no longer overhangs content */
+.hdr-in,.logo-badge img{transition:min-height .3s cubic-bezier(.2,.7,.2,1),padding .3s,height .3s cubic-bezier(.2,.7,.2,1)}
+@media (max-width:1023px){.hdr.compact{--logo-h:4.3rem}}
+@media (min-width:1024px){
+  .hdr.compact .hdr-in{min-height:5.6rem;padding-left:9.6rem}
+  .hdr.compact .logo-badge{left:1.2rem}
+  .hdr.compact .logo-badge img{height:5rem}
+}
+@media (prefers-reduced-motion:reduce){.hdr-in,.logo-badge img,.soon-dock{transition:none}}
+/* 3. breathing room: Kannada tagline under the order cards, footer clear of the floating buttons */
+.tag{margin-top:clamp(1.75rem,4vw,3.25rem);padding-bottom:.5rem}
+@media (min-width:1024px){.ftr{padding-right:5.5rem}}
+/* 4. staggered reveals for card grids */
+@media (prefers-reduced-motion:no-preference){
+  .catgrid>li:nth-child(2),.reveal:nth-child(2){transition-delay:.08s}
+  .catgrid>li:nth-child(3),.reveal:nth-child(3){transition-delay:.16s}
+  .catgrid>li:nth-child(4),.reveal:nth-child(4){transition-delay:.24s}
+}
+/* 5. hero action rows wrap cleanly */
+.hero [class*="chip"],.hero .brand{flex:none}
