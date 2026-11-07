@@ -983,3 +983,19 @@ main>section.mx-auto{padding-block:var(--sec-y)}
 /* v39b: keep the wordmark clear of the nav and the burger */
 @media (min-width:1024px){.hdr-word b{font-size:clamp(1.45rem,1.75vw,1.85rem)}.hdr-word small{font-size:.8rem;letter-spacing:.3em}.hdr-word small::after{max-width:2rem}.hdr-in{padding-left:18.2rem}}
 @media (max-width:1023px){.hdr-word b{font-size:clamp(.8rem,4.2vw,1.25rem)}.hdr-word small::after{display:none}.hdr-word small{letter-spacing:.22em}}
+
+/* ---- v40: mobile menu panel anchored to the header bar (not viewport-fixed inside a backdrop-filter parent), solid, scroll-safe ---- */
+@media (max-width:1023px){
+  #mnav{position:static}
+  .hdr-in{position:relative}
+  .mpanel{position:absolute;left:0;right:0;top:calc(100% + .5rem);max-height:calc(100svh - var(--logo-h) - 3.5rem);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+    background:linear-gradient(180deg,#8E1219,#3A080E);-webkit-backdrop-filter:none;backdrop-filter:none;z-index:60;box-shadow:0 18px 40px rgba(20,2,4,.55)}
+  .mlink{min-height:58px;padding-inline:.25rem;color:#FFF3D0}
+  .mlink[aria-current],.mlink-cta{color:#FFD87A}
+  html.menu-open,html.menu-open body{overflow:hidden}
+}
+@media (max-width:1023px){
+  html.menu-open .consent,html.menu-open .wz,html.menu-open .qbar{visibility:hidden}
+  .hdr-word b{font-size:clamp(.78rem,calc((58vw - 128px)/6.75),1.22rem)}
+}
+@media (min-width:520px) and (max-width:1023px){.hdr-word b{font-size:1.55rem}}

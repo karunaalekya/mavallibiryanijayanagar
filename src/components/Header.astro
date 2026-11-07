@@ -37,7 +37,7 @@ const order = cfg.nav.find(([l]: string[]) => l === 'Order Now');
     last = y;
   };
   addEventListener('scroll', on, { passive: true }); on();
-  d.addEventListener('toggle', on);
+  d.addEventListener('toggle', () => { on(); document.documentElement.classList.toggle('menu-open', d.open); });
   document.addEventListener('click', (e) => { if (d.open && !d.contains(e.target as Node)) d.open = false; });
   addEventListener('keydown', (e) => { if (e.key === 'Escape' && d.open) { d.open = false; d.querySelector('summary')!.focus(); } });
   d.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { d.open = false; }));
