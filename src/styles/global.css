@@ -1067,3 +1067,11 @@ main>section.mx-auto{padding-block:var(--sec-y)}
   .hdr-nav .navlink[aria-current]{background:rgba(255,226,150,.22)}
   .hdr-word{display:none}
 }
+
+/* v46: all nav links visible on phones, 2x4 grid beside logo, no scroll */
+@media (max-width:1023px){
+  .hdr-nav{display:grid!important;grid-template-columns:1fr 1fr;gap:.3rem;flex:1;min-width:0;overflow:visible;-webkit-mask-image:none;mask-image:none;padding:0;align-self:center;scroll-snap-type:none}
+  .hdr-nav .navlink{display:flex;align-items:center;justify-content:center;padding:.32rem .3rem;font-size:.8rem;line-height:1.1;letter-spacing:0;border-width:1.5px;min-height:30px;text-align:center}
+  .hdr-nav .navlink-order{grid-column:auto}
+  .hdr.compact .hdr-nav .navlink{padding:.22rem .3rem;min-height:26px}
+}
