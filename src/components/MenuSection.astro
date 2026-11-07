@@ -23,7 +23,7 @@ const leaf = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"
       <p class="mn-sub">{total} dishes, numbered as on our menu board. Prices in ₹, GST as applicable. Tap Add on the dishes you want, then send your order on WhatsApp.</p>
       <div class="mn-apps" aria-label="Order online">
         <span class="mn-apps-l">Order on</span>
-        <Fragment set:html={app('swiggy', 'Swiggy') + app('zomato', 'Zomato')} />
+        <Fragment set:html={app('swiggy', 'Swiggy') + app('zomato', 'Zomato') + app('ownly', 'Ownly')} />
         <a href={waLink()} class="brand brand-wa" data-evt="whatsapp_click"><svg viewBox="0 0 32 32" aria-hidden="true" set:html={waIcon} /><span class="wm">WhatsApp</span><span aria-hidden="true">→</span></a>
       </div>
     </header>

@@ -13,4 +13,7 @@ export const brandIcon: Record<string, string> = {
   zomato: '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#fff"/><text x="16" y="24" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-weight="700" font-size="24" fill="#E23744">z</text></svg>',
   swiggy: '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#fff"/><path d="M16 5c-4.400 0-8 3.400-8 7.800 0 5.600 8 14.200 8 14.200s8-8.600 8-14.200C24 8.400 20.400 5 16 5Z" fill="#FC8019"/><circle cx="16" cy="13" r="3.200" fill="#fff"/></svg>',
 };
-export const brandName: Record<string, string> = { zomato: 'zomato', swiggy: 'swiggy' };
+export const brandName: Record<string, string> = { zomato: 'zomato', swiggy: 'swiggy', ownly: 'ownly' };
+
+// Ownly: placeholder mark (ring on black). Replace with the official logo SVG when available.
+brandIcon.ownly = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#111"/><circle cx="16" cy="16" r="7" fill="none" stroke="#FFC800" stroke-width="3.5"/></svg>';

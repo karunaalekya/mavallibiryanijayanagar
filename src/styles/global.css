@@ -1115,3 +1115,9 @@ main>section.mx-auto{padding-block:var(--sec-y)}
 .cat:hover{scale:1.1!important;z-index:30;box-shadow:0 26px 48px rgba(20,2,4,.55)}
 /* DEBUG-HOVER: remove after test */
 .sig-card:hover,.cat:hover{outline:4px solid blue;outline-offset:9px}
+
+/* v54: Ownly brand (placeholder colours: black + yellow; swap for official brand colours) */
+.brand-ownly{background:linear-gradient(135deg,#2A2A2A,#111 55%,#000);color:#FFC800}
+.brand-ownly .wm{text-transform:lowercase;font-weight:800}
+.obtn.obtn-ownly{background:linear-gradient(135deg,#2A2A2A,#111 55%,#000);color:#FFC800}
+.soon[data-brand="ownly"] .soon-head{background:#111;color:#FFC800}

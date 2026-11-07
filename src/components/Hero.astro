@@ -42,7 +42,7 @@ const chip = (k: string, label: string) =>
       </div>
       <div class="rise d3 mt-6 flex flex-wrap items-center gap-2 text-sm">
         <span class="text-cream/80">Order on</span>
-        <Fragment set:html={chip('zomato', 'Zomato') + chip('swiggy', 'Swiggy')} />
+        <Fragment set:html={chip('zomato', 'Zomato') + chip('swiggy', 'Swiggy') + chip('ownly', 'Ownly')} />
         {callNum && <a href={telLink} class="chip-app plain" data-evt="call_click">Call hotel</a>}
         <span class="chip-app plain">Pickup available</span>
       </div>
