@@ -10,11 +10,12 @@ const order = cfg.nav.find(([l]: string[]) => l === 'Order Now');
   <div class="hdr-in mx-auto flex max-w-[1240px] items-start justify-between gap-3 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center">
     <a href="/" aria-label={cfg.name} class="logo-badge"><span class="logo-art"><img src="/img/logo.webp" srcset="/img/logo-sm.webp 360w, /img/logo.webp 720w" sizes="(min-width:1024px) 13rem, 40vw" alt="Mavalli Biryani, Taste of 1952" width="720" height="463" fetchpriority="high"><canvas id="logo-fx" class="logo-fx" aria-hidden="true"></canvas></span></a>
     <a href="/" class="hdr-word" tabindex="-1" aria-hidden="true"><b>Mavalli Biryani</b><small>Jayanagar</small></a>
-    <nav class="hdr-nav hidden items-center justify-center gap-1 lg:col-start-2 lg:flex" aria-label="Main">
+    <nav class="hdr-nav flex items-center gap-1 lg:col-start-2 lg:justify-center" aria-label="Main">
       {links.map(([l,h]: string[]) => <a href={h} aria-current={path===h?'page':undefined} class="navlink">{l}</a>)}
+      {order && <a href={order[1]} aria-current={path===order[1]?'page':undefined} class="navlink navlink-order lg:hidden" data-evt="order_click">{order[0]}</a>}
     </nav>
     <div class="hidden justify-end lg:col-start-3 lg:flex">{order && <a href={order[1]} aria-current={path===order[1]?'page':undefined} class="btn btn-fire hdr-cta" data-evt="order_click">{order[0]}</a>}</div>
-    <details id="mnav" class="relative ml-auto mt-1 lg:hidden">
+    <details id="mnav" class="relative ml-auto mt-1 hidden">
       <summary class="burger" aria-label="Menu"><span></span><span></span><span></span></summary>
       <nav class="mpanel" aria-label="Mobile">
         {links.map(([l,h]: string[]) => <a href={h} aria-current={path===h?'page':undefined} class="mlink">{l}</a>)}
