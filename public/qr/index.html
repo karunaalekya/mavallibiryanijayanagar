@@ -21,7 +21,8 @@
 <link rel="canonical" href="https://mavallibiryanijayanagar.com/qr/">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
-<link rel="preload" as="image" href="hero.webp" type="image/webp" fetchpriority="high">
+<link rel="preload" as="image" href="logo.webp" type="image/webp" fetchpriority="high">
+<link rel="preload" as="image" href="hero.webp" type="image/webp">
 <link rel="preload" as="image" href="badge.webp" type="image/webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,7 +57,7 @@ body{min-height:100dvh;color:var(--ink);font:500 15px/1.4 var(--sans);-webkit-ta
 @media (prefers-color-scheme:dark){html:not([data-theme="light"]) body{background:linear-gradient(180deg,var(--page),var(--page2))}}
 img{max-width:100%;display:block}
 [hidden]{display:none!important}
-.app{max-width:480px;margin:0 auto;position:relative;overflow:hidden;background:inherit}
+.app{max-width:540px;margin:0 auto;position:relative;overflow:hidden;background:inherit}
 svg.l{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 html[lang="kn"] body{font-family:"Noto Sans Kannada",var(--sans)}
 
@@ -107,7 +108,7 @@ html[lang="kn"] .status,html[lang="kn"] .web{font-family:"Noto Sans Kannada",san
 .web svg.l{width:14px;height:14px}.web{position:relative}.web::after{content:"";position:absolute;inset:-8px -2px}
 .web svg.l+span+svg.l{width:12px;height:12px;opacity:.8}
 /* curved cream edge + gold line under hero */
-.edge{position:absolute;left:-2px;right:-2px;bottom:-1px;height:28px;z-index:1;color:var(--page)}
+.edge{position:absolute;left:-2px;width:calc(100% + 4px);bottom:-1px;height:28px;z-index:1;color:var(--page)}
 .edge path{fill:currentColor}.edge .g{fill:none;stroke:#C99A45;stroke-width:2}
 
 /* ---------- TABLE CARTOUCHE ---------- */
@@ -296,7 +297,7 @@ html[lang="kn"] .hdr small{font:700 clamp(11.5px,1.6dvh,13px)/1 "Baloo Tamma 2",
 .hero{height:clamp(196px,30dvh,300px)}
 .htext{bottom:clamp(20px,3dvh,36px)}
 @media (max-height:760px){.since{display:none}}
-body,:root[data-theme="dark"] body{background:#5B0109!important}
+body,:root[data-theme="dark"] body{background:var(--page2)!important}
 .app{background:linear-gradient(180deg,var(--page),var(--page2))}
 main{transform-origin:top center}
 .ico{width:clamp(42px,6.8dvh,64px);height:clamp(42px,6.8dvh,64px);margin-bottom:clamp(1px,.4dvh,4px);filter:drop-shadow(0 8px 8px #5A0F1A33)}
@@ -318,6 +319,59 @@ main{transform-origin:top center}
 .wa b,.wa em{overflow:hidden;text-overflow:ellipsis}
 .wa .go{flex:none;margin-left:2px}
 html[lang="kn"] .wa b{font-size:clamp(13.5px,2.05dvh,17px)}
+
+/* ---- v3.2 polish ---- */
+/* 1. WhatsApp: fixed comfortable width, centred */
+.wawrap{width:100%;max-width:400px;margin:0 auto}
+/* 3. JAYANAGAR: solid, darker, bolder */
+.hdr small{background:none;-webkit-background-clip:border-box;background-clip:border-box;-webkit-text-fill-color:#8A4B0C;color:#8A4B0C;font-weight:800}
+.hdr small::before,.hdr small::after{background:#B9792A}
+/* 2. five buttons in the bottom row */
+.more{grid-template-columns:repeat(4,1fr);gap:7px}
+.mi{font-size:clamp(10px,1.45dvh,11.5px)}
+.igt{display:grid;place-items:center;width:clamp(30px,4.8dvh,40px);height:clamp(30px,4.8dvh,40px);border-radius:30%;color:#fff;position:relative;
+  background:radial-gradient(circle at 30% 108%,#FFE083 0%,#FFD06A 8%,#FD5949 42%,#D6249F 62%,#5B4CF0 92%);
+  box-shadow:inset 0 1.5px 0 #FFFFFF80,inset 0 -3px 6px #00000026,0 6px 12px -3px #D6249F80}
+.igt::before{content:"";position:absolute;left:3px;right:3px;top:2px;height:45%;border-radius:10px 10px 50% 50%/10px 10px 40% 40%;background:linear-gradient(#FFFFFF8C,#FFFFFF00)}
+.igt svg.l{width:60%;height:60%;stroke-width:2.2;position:relative;filter:drop-shadow(0 1px 1px #0005)}
+.mi:active .igt{transform:scale(.88)}
+/* 6. every 3D icon sits on a soft tinted glow so it pops on cream */
+.card .ico,.mi img{border-radius:50%;padding:clamp(6px,1dvh,9px);background:radial-gradient(circle at 35% 30%,#FFFFFF 0%,var(--tint,#FFE9CC) 70%);box-shadow:0 0 0 1px #E8C9934D inset}
+.card .ico{width:clamp(48px,7.6dvh,70px);height:clamp(48px,7.6dvh,70px)}
+.mi img{width:clamp(34px,5.4dvh,46px);height:clamp(34px,5.4dvh,46px);padding:clamp(5px,.8dvh,7px)}
+[data-link="menu"] .ico{--tint:#FFDDB5}[data-link="upi"] .ico{--tint:#D5ECFF}[data-link="review"] .ico{--tint:#FFEFB3}
+[data-track="call"] img{--tint:#FFD9E6}[data-link="map"] img{--tint:#FFDADA}[data-link="fb"] img{--tint:#FFF0C2}[data-track="save_contact"] img{--tint:#E6DEFF}
+:root[data-theme="dark"] .card .ico,:root[data-theme="dark"] .mi img{box-shadow:0 0 14px #FFD8A033}
+
+/* ---- v3.3: Mavalli sign (pot on wood fire) as the hero centrepiece ---- */
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hero{height:clamp(214px,33dvh,340px)}
+.htext{left:10px;right:auto;bottom:clamp(24px,3.8dvh,40px)}
+.sign{position:relative;display:inline-block;isolation:isolate}
+.sign::before{content:"";position:absolute;left:30%;right:30%;top:-6%;height:46%;z-index:-1;border-radius:50%;
+  background:radial-gradient(closest-side,#FF8A2AB0,#FF5A1A55 55%,transparent);filter:blur(10px);animation:flame 2.6s ease-in-out infinite}
+@keyframes flame{0%,100%{opacity:.55;transform:scale(1)}35%{opacity:.95;transform:scale(1.08,1.14)}60%{opacity:.7;transform:scale(.97,1.04)}}
+.hlogo{display:block;height:clamp(80px,14.2dvh,166px);width:auto;max-width:min(64vw,300px);object-fit:contain;
+  filter:drop-shadow(0 10px 16px #000000B0) drop-shadow(0 0 1px #00000080);animation:signin 1s var(--spring) .15s both}
+@keyframes signin{from{opacity:0;transform:translateY(14px) scale(.9)}}
+.hchips{margin-top:clamp(6px,1.1dvh,12px);margin-left:6px}
+.hero::before{background:linear-gradient(90deg,#1E0703D9 0%,#2B0C05A6 38%,#2B0C0500 66%),linear-gradient(0deg,#1E0703CC 0%,#1E070300 26%)}
+
+/* ---- v3.4: Instagram circle left of WhatsApp ---- */
+.wawrap{grid-template-columns:20px auto 1fr 20px;max-width:430px;gap:6px}
+.igc{position:relative;overflow:hidden;display:grid;place-items:center;width:clamp(52px,7.6dvh,72px);height:clamp(52px,7.6dvh,72px);border-radius:50%;color:#fff;
+  background:radial-gradient(circle at 30% 108%,#FFE083 0%,#FFD06A 8%,#FD5949 42%,#D6249F 62%,#5B4CF0 92%);
+  box-shadow:0 10px 22px #D6249F55,inset 0 2px 0 #FFFFFF70,inset 0 -3px 6px #00000026;transition:transform .5s var(--spring);animation:rise .8s var(--spring) .3s both}
+.igc::before{content:"";position:absolute;left:8px;right:8px;top:3px;height:44%;border-radius:999px;background:linear-gradient(#FFFFFF6E,#FFFFFF00)}
+.igc svg.l{width:46%;height:46%;stroke-width:2.1;position:relative;filter:drop-shadow(0 1px 1px #0005)}
+.igc:active{transform:scale(.92);transition-duration:.09s}
+
+/* ---- v3.5: JAYANAGAR always fully inside the curved header card ---- */
+.hdr{width:66%;padding-right:30px;border-radius:0 0 62% 0/0 0 100% 0}
+.hdr small{letter-spacing:.2em}
+.hdr small::after{display:none}
+.hdr b,.hdr small{white-space:nowrap}
+@media (max-width:370px){.hdr{width:68%}.hdr small{letter-spacing:.14em}}@media (max-width:340px){.hdr small{letter-spacing:.08em;font-size:9.5px}}
 @media (max-height:620px){.fline,.since{display:none}}
 @media (max-width:360px){.pill .lt{display:inline}.hdr{width:60%}}
 </style>
@@ -349,9 +403,8 @@ html[lang="kn"] .wa b{font-size:clamp(13.5px,2.05dvh,17px)}
     <button class="pill round" id="theme" type="button" aria-label="Switch light / dark theme"><svg class="l sun" aria-hidden="true"><use href="#i-sun"/></svg><svg class="l moon" aria-hidden="true"><use href="#i-moon"/></svg></button>
   </div>
   <div class="htext">
-    <p class="since" data-k="since">Taste of 1952</p>
-    <h1 data-k="welcome">Welcome to<br>Mavalli Biryani</h1>
-    <p class="tag" data-k="tagline">Authentic Taste…<br>Timeless Tradition…</p>
+    <div class="sign"><img class="hlogo" src="logo.webp" width="500" height="322" alt="Mavalli Biryani – Taste of 1952" fetchpriority="high" decoding="async"></div>
+    <h1 class="sr" data-k="welcome">Welcome to<br>Mavalli Biryani</h1>
     <div class="hchips">
       <a class="web" data-link="site" data-track="website" href="#"><svg class="l" aria-hidden="true"><use href="#i-globe"/></svg><span data-k="site">Website</span><svg class="l" aria-hidden="true"><use href="#i-ext"/></svg></a>
       <div class="status" id="status" role="status" aria-live="polite"></div>
@@ -375,6 +428,7 @@ html[lang="kn"] .wa b{font-size:clamp(13.5px,2.05dvh,17px)}
 
   <div class="wawrap">
     <svg class="spark l" viewBox="0 0 22 34" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M17 7 8 3"/><path d="M19 17H6"/><path d="M17 27 8 31"/></g></svg>
+    <a class="igc" data-track="instagram_top" href="https://www.instagram.com/mavallibiryani.jayanagar/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="l" aria-hidden="true"><use href="#i-ig"/></svg></a>
     <a class="wa" data-link="wa" data-track="whatsapp" href="#" target="_blank" rel="noopener">
       <span class="ring"><svg aria-hidden="true"><use href="#i-wa"/></svg></span>
       <span><b data-k="wa">Order on WhatsApp</b><em data-k="wa_s">Fastest way to order · pickup available</em></span>
@@ -389,7 +443,7 @@ html[lang="kn"] .wa b{font-size:clamp(13.5px,2.05dvh,17px)}
       <b data-k="menu">Explore Menu</b><em data-k="menu_s">Biryani, Starters &amp; More</em>
       <span class="cta"><span data-k="menu_c">View Menu</span><svg class="l" aria-hidden="true"><use href="#i-arr"/></svg></span>
     </a>
-    <a class="card" style="--i:1" data-link="upi" data-track="upi_pay" href="#" hidden>
+    <a class="card" style="--i:1" data-link="upi" data-track="upi_pay" href="#">
       <img class="ico" src="icons/pay.webp" width="54" height="54" alt="" decoding="async">
       <b data-k="pay">Pay Your Bill</b><em data-k="pay_s">UPI · GPay · PhonePe</em>
       <span class="cta"><span data-k="pay_c">Pay Securely</span><svg class="l" aria-hidden="true"><use href="#i-arr"/></svg></span>
@@ -411,8 +465,8 @@ html[lang="kn"] .wa b{font-size:clamp(13.5px,2.05dvh,17px)}
   <div class="more">
     <a class="mi" style="--i:0" data-track="call" href="tel:+919663066999"><img src="icons/call.webp" width="34" height="34" alt="" loading="lazy" decoding="async"><span data-k="call">Call</span></a>
     <a class="mi" style="--i:1" data-link="map" data-track="directions" href="#" target="_blank" rel="noopener"><img src="icons/pin.webp" width="34" height="34" alt="" loading="lazy" decoding="async"><span data-k="dir">Directions</span></a>
-    <a class="mi" style="--i:2" data-link="fb" data-track="feedback" href="#" target="_blank" rel="noopener"><img src="icons/feedback.webp" width="34" height="34" alt="" loading="lazy" decoding="async"><span data-k="fb">Tell Manager</span></a>
-    <button class="mi" style="--i:3" id="vcf" type="button" data-track="save_contact"><img src="icons/contact.webp" width="34" height="34" alt="" loading="lazy" decoding="async"><span data-k="save">Save Contact</span></button>
+    <a class="mi" style="--i:2" data-link="fb" data-track="feedback" href="#" target="_blank" rel="noopener"><img src="icons/feedback.webp" width="34" height="34" alt="" loading="lazy" decoding="async"><span data-k="fb">Feedback</span></a>
+    <button class="mi" style="--i:3" id="vcf" type="button" data-track="save_contact"><img src="icons/contact.webp" width="34" height="34" alt="" loading="lazy" decoding="async"><span data-k="save">Save</span></button>
   </div>
 </main>
 
@@ -468,18 +522,18 @@ var I18N={
   youat:'You’re at',table:'Table ',wa:'Order on WhatsApp',wa_s:'Fastest way to order · pickup',wa_t:'Order right from your table',
   menu:'Explore Menu',menu_s:'Biryani, Starters & More',menu_c:'View Menu',pay:'Pay Your Bill',pay_s:'UPI · GPay · PhonePe',pay_c:'Pay Securely',
   rate:'Share Your Feedback',rate_s:'Rate us on Google',rate_c:'Review Now',deliver:'Order Delivery',dl:'Delivery',
-  call:'Call',dir:'Directions',fb:'Tell Manager',save:'Save Contact',fsub:'Taste of 1952 · Jayanagar',ftag:'Authentic Taste. Timeless Tradition.',loc:'Jayanagar, Bengaluru',
+  call:'Call',dir:'Directions',fb:'Feedback',save:'Save',fsub:'Taste of 1952 · Jayanagar',ftag:'Authentic Taste. Timeless Tradition.',loc:'Jayanagar, Bengaluru',
   share:'Share this page',today:'Today',open:'Open · closes ',soon:'Closing soon · ',closed:'Closed · opens ',tmr:'tomorrow ',
   days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],wamsg:'Hi, I want to order biryani',wamsgT:'Hi, ordering from Table ',fbmsg:'Feedback for Mavalli Biryani Jayanagar: ',
-  langBtn:'EN',copied:'Link copied',saved:'Contact downloaded',upiCopied:'No UPI app? ID copied: '},
+  langBtn:'EN',payCounter:'Online payment coming soon — please pay at the counter.',copied:'Link copied',saved:'Contact downloaded',upiCopied:'No UPI app? ID copied: '},
  kn:{area:'ಜಯನಗರ',since:'1952 ರ ರುಚಿ',welcome:'ಮಾವಳ್ಳಿ ಬಿರಿಯಾನಿಗೆ<br>ಸುಸ್ವಾಗತ',tagline:'ಅಸಲಿ ರುಚಿ…<br>ಅಚ್ಚಳಿಯದ ಪರಂಪರೆ…',site:'ವೆಬ್‌ಸೈಟ್',
   youat:'ನೀವು ಇರುವುದು',table:'ಟೇಬಲ್ ',wa:'ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಆರ್ಡರ್ ಮಾಡಿ',wa_s:'ಬೇಗ ಆರ್ಡರ್ ಮಾಡಿ · ಪಿಕಪ್ ಲಭ್ಯ',wa_t:'ಟೇಬಲ್‌ನಿಂದಲೇ ಆರ್ಡರ್ ಮಾಡಿ',
   menu:'ಮೆನು ನೋಡಿ',menu_s:'ಬಿರಿಯಾನಿ, ಸ್ಟಾರ್ಟರ್ಸ್ ಇನ್ನಷ್ಟು',menu_c:'ಮೆನು ತೆರೆಯಿರಿ',pay:'ಬಿಲ್ ಪಾವತಿ',pay_s:'UPI · GPay · PhonePe',pay_c:'ಪಾವತಿಸಿ',
   rate:'ನಿಮ್ಮ ಅಭಿಪ್ರಾಯ',rate_s:'ಗೂಗಲ್‌ನಲ್ಲಿ ರೇಟ್ ಮಾಡಿ',rate_c:'ವಿಮರ್ಶೆ ಬರೆಯಿರಿ',deliver:'ಮನೆಗೆ ತರಿಸಿ',dl:'ಡೆಲಿವರಿ',
-  call:'ಕರೆ',dir:'ದಾರಿ',fb:'ಮ್ಯಾನೇಜರ್‌ಗೆ',save:'ಸಂಪರ್ಕ ಉಳಿಸಿ',fsub:'1952 ರ ರುಚಿ · ಜಯನಗರ',ftag:'ಅಸಲಿ ರುಚಿ. ಅಚ್ಚಳಿಯದ ಪರಂಪರೆ.',loc:'ಜಯನಗರ, ಬೆಂಗಳೂರು',
+  call:'ಕರೆ',dir:'ದಾರಿ',fb:'ಸಲಹೆ',save:'ಉಳಿಸಿ',fsub:'1952 ರ ರುಚಿ · ಜಯನಗರ',ftag:'ಅಸಲಿ ರುಚಿ. ಅಚ್ಚಳಿಯದ ಪರಂಪರೆ.',loc:'ಜಯನಗರ, ಬೆಂಗಳೂರು',
   share:'ಹಂಚಿಕೊಳ್ಳಿ',today:'ಇಂದು',open:'ತೆರೆದಿದೆ · ಮುಚ್ಚುವುದು ',soon:'ಶೀಘ್ರ ಮುಚ್ಚುತ್ತದೆ · ',closed:'ಮುಚ್ಚಿದೆ · ತೆರೆಯುವುದು ',tmr:'ನಾಳೆ ',
   days:['ಭಾನು','ಸೋಮ','ಮಂಗಳ','ಬುಧ','ಗುರು','ಶುಕ್ರ','ಶನಿ'],wamsg:'ನಮಸ್ಕಾರ! ನನಗೆ ಬಿರಿಯಾನಿ ಆರ್ಡರ್ ಮಾಡಬೇಕು',wamsgT:'ನಮಸ್ಕಾರ! ಟೇಬಲ್ ',fbmsg:'ಮಾವಳ್ಳಿ ಬಿರಿಯಾನಿ ಜಯನಗರ – ಸಲಹೆ: ',
-  langBtn:'ಕನ್ನಡ',copied:'ಲಿಂಕ್ ನಕಲಾಗಿದೆ',saved:'ಸಂಪರ್ಕ ಡೌನ್‌ಲೋಡ್ ಆಯಿತು',upiCopied:'UPI ಆ್ಯಪ್ ಇಲ್ಲವೇ? ID ನಕಲಾಗಿದೆ: '}
+  langBtn:'ಕನ್ನಡ',payCounter:'ಆನ್‌ಲೈನ್ ಪಾವತಿ ಶೀಘ್ರದಲ್ಲೇ — ದಯವಿಟ್ಟು ಕೌಂಟರ್‌ನಲ್ಲಿ ಪಾವತಿಸಿ.',copied:'ಲಿಂಕ್ ನಕಲಾಗಿದೆ',saved:'ಸಂಪರ್ಕ ಡೌನ್‌ಲೋಡ್ ಆಯಿತು',upiCopied:'UPI ಆ್ಯಪ್ ಇಲ್ಲವೇ? ID ನಕಲಾಗಿದೆ: '}
 };
 var HTML_KEYS={welcome:1,tagline:1};
 
@@ -518,8 +572,8 @@ $$('[data-dl]').forEach(function(a){
 });
 if(!nDl){$('#deliv').hidden=true;$('#dlh').hidden=true}else if(nDl===3)$('#deliv').classList.add('n3');
 var upiA=$('[data-link="upi"]');
+if(!C.upi){upiA.addEventListener('click',function(e){e.preventDefault();toast(I18N[lang].payCounter,3000)})}
 if(C.upi){
-  upiA.hidden=false;
   upiA.href='upi://pay?pa='+encodeURIComponent(C.upi)+'&pn='+encodeURIComponent(C.upiName)+'&cu=INR'+(table?'&tn='+encodeURIComponent('Table '+table):'');
   upiA.addEventListener('click',function(){
     var t=setTimeout(function(){if(document.visibilityState==='visible'){copy(C.upi);toast(I18N[lang].upiCopied+C.upi,3200)}},1400);
@@ -593,7 +647,7 @@ function copy(s){try{if(navigator.clipboard&&window.isSecureContext)return navig
 
 /* ---------- tap ripple + light haptic ---------- */
 document.addEventListener('pointerdown',function(e){
-  var t=e.target.closest('.wa,.card,.dl,.mi,.pill,.share');if(!t)return;
+  var t=e.target.closest('.wa,.igc,.card,.dl,.mi,.pill,.share');if(!t)return;
   if(navigator.vibrate&&e.pointerType==='touch'){try{navigator.vibrate(8)}catch(_){}}
   if(reduce)return;
   var r=t.getBoundingClientRect(),s=document.createElement('span'),d=Math.max(r.width,r.height)*2.2;
