@@ -218,8 +218,108 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--gold2);outline-offs
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.28s}
 html.vt-theme::view-transition-old(root),html.vt-theme::view-transition-new(root){animation:none;mix-blend-mode:normal}
 html.vt-theme::view-transition-new(root){z-index:2}
-@media (max-width:360px){.hdr b{font-size:16px}.hdr{width:66%}.card b{font-size:14px}.card em{display:none}.pill .lt{display:none}}
+@media (max-width:360px){.hdr b{font-size:16px}.hdr{width:66%}.card b{font-size:14px}.card em{display:none}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ===== ONE-SCREEN LAYOUT: everything fits the visible viewport, sizes scale with screen height ===== */
+:root{--gap:clamp(6px,1.25dvh,14px)}
+.app{min-height:100dvh;display:flex;flex-direction:column}
+.hero{flex:none;height:clamp(178px,30dvh,300px)}
+.hdr{width:62%;min-height:0;padding:calc(7px + env(safe-area-inset-top,0px)) 22px 8px 10px;gap:8px}
+.hdr img{width:clamp(32px,4.8dvh,44px);height:clamp(32px,4.8dvh,44px)}
+.hdr b{font-size:clamp(14px,2.1dvh,18px)}
+.hdr small{font-size:9px;letter-spacing:.28em;margin-top:3px}
+.ctl{top:calc(9px + env(safe-area-inset-top,0px));right:10px;gap:6px}
+.pill{height:clamp(32px,4.4dvh,38px);padding:0 11px;font-size:12.5px}
+.pill.round{width:clamp(32px,4.4dvh,38px)}
+.htext{bottom:clamp(22px,3.6dvh,38px);right:36%}
+.since{font-size:clamp(9px,1.25dvh,10.5px);margin-bottom:clamp(3px,.8dvh,8px)}
+.htext h1{font-size:clamp(19px,3.3dvh,30px)}
+.tag{font-size:clamp(12px,1.85dvh,16px);margin-top:clamp(2px,.7dvh,8px)}
+html[lang="kn"] .htext h1{font-size:clamp(17px,2.95dvh,27px);line-height:1.22}
+html[lang="kn"] .tag{font-size:clamp(11.5px,1.75dvh,15px);line-height:1.35}
+.hchips{margin-top:clamp(5px,1dvh,12px)}
+.status,.web{height:clamp(24px,3.2dvh,28px);font-size:11px;padding:0 9px}
+.edge{height:20px}
+.cart{width:min(210px,58%);height:clamp(50px,7.4dvh,70px);margin:clamp(-30px,-3.4dvh,-24px) auto 0}
+.cart .you{font-size:clamp(11px,1.6dvh,14px)}.cart .you svg{width:14px;height:14px}
+.cart .num{font-size:clamp(19px,3dvh,27px);gap:8px}.cart .num::before,.cart .num::after{width:16px}
+.spacer{height:0}
+main{flex:1 1 auto;display:flex;flex-direction:column;justify-content:space-evenly;gap:var(--gap);padding:var(--gap) 12px}
+.offer{margin:0;padding:6px 10px;font-size:12.5px}
+.wawrap{margin:0}
+.wa{min-height:clamp(52px,7.6dvh,72px);margin:0 8px;padding:6px 14px 6px 8px;gap:11px}
+.wa .ring{width:clamp(40px,5.8dvh,52px);height:clamp(40px,5.8dvh,52px)}
+.wa .ring svg{width:60%;height:60%}
+.wa b{font-size:clamp(16px,2.45dvh,20px);white-space:nowrap}
+.wa em{font-size:clamp(11px,1.55dvh,12.5px);margin-top:1px;white-space:nowrap}
+html[lang="kn"] .wa b{font-size:clamp(14.5px,2.2dvh,18px)}
+.spark{height:28px;margin-top:-14px}
+.cards{gap:8px}
+.card{padding:clamp(7px,1.3dvh,13px) 4px clamp(7px,1.2dvh,12px);gap:1px;border-radius:16px}
+.ico{width:clamp(32px,5.4dvh,52px);height:clamp(32px,5.4dvh,52px);margin-bottom:clamp(2px,.5dvh,5px)}
+.card b{font-size:clamp(12.5px,1.85dvh,15px)}
+html[lang="kn"] .card b{font-size:clamp(12.5px,1.85dvh,15px)}
+.card em{font-size:11px}
+.card .cta{margin-top:clamp(2px,.6dvh,6px);font-size:clamp(11px,1.55dvh,12.5px)}
+@media (max-height:780px){.card em{display:none}}
+.sec{margin:0;font-size:clamp(10.5px,1.5dvh,13px)}
+html[lang="kn"] .sec{font-size:clamp(12px,1.7dvh,15px)}
+.dlv{gap:8px}
+.dl,.dlv.n3 .dl{min-height:clamp(42px,6.2dvh,58px);padding:6px 8px;border-radius:14px;gap:7px}
+.dl .lg,.dlv.n3 .dl .lg{width:clamp(26px,4dvh,34px);height:clamp(26px,4dvh,34px);font-size:14px;border-radius:9px}
+.dl b,.dlv.n3 .dl b{font-size:clamp(12.5px,1.85dvh,14.5px)}
+.dl em{font-size:10.5px;margin-top:1px}
+@media (max-height:700px){.dl em{display:none}}
+.more{margin:0;gap:7px}
+.mi{padding:clamp(5px,1dvh,9px) 2px;gap:clamp(2px,.5dvh,5px);border-radius:14px;font-size:clamp(10px,1.45dvh,11.5px)}
+.mi img{width:clamp(22px,3.7dvh,32px);height:clamp(22px,3.7dvh,32px)}
+html[lang="kn"] .mi{font-size:clamp(10px,1.45dvh,11.5px)}
+footer{flex:none;margin:0;padding:clamp(16px,2.6dvh,26px) 14px calc(clamp(6px,1dvh,12px) + env(safe-area-inset-bottom,0px));
+  background:url(footer.webp) center top/100% auto no-repeat,linear-gradient(180deg,transparent 0,transparent 46px,#5B0109 47px)}
+footer .bd{width:clamp(34px,5dvh,46px);height:clamp(34px,5dvh,46px);margin:clamp(-16px,-1.8dvh,-12px) auto 2px}
+.fname{font-size:clamp(15px,2.3dvh,20px)}
+.fline{margin:2px auto 0;font-size:clamp(11.5px,1.65dvh,14px)}
+html[lang="kn"] .fline{font-size:clamp(11.5px,1.6dvh,13.5px)}
+.frow{margin-top:clamp(2px,.6dvh,6px);gap:10px;font-size:12px}
+.frow a{min-height:34px}
+.frow .sep{height:16px}
+.share{margin:0;padding:0;width:34px;height:34px;min-height:0;justify-content:center;border-radius:50%;border:0;background:none;color:#FBE9CC}
+.share svg.l{width:18px;height:18px}
+.fsmall{margin-top:0;font-size:10px;line-height:1.4}
+
+/* ---- v3.1: brighter JAYANAGAR, icons as the hero of each tile ---- */
+.hdr small{font:800 clamp(10px,1.4dvh,11.5px)/1 var(--sans);letter-spacing:.3em;margin-top:4px;
+  background:linear-gradient(90deg,#B8741A,#E0A43A 45%,#A8600F);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.hdr small::before,.hdr small::after{width:12px;height:1.5px;background:linear-gradient(90deg,#C9872A,#E6B04A)}
+html[lang="kn"] .hdr small{font:700 clamp(11.5px,1.6dvh,13px)/1 "Baloo Tamma 2",sans-serif;letter-spacing:.06em}
+.hero{height:clamp(196px,30dvh,300px)}
+.htext{bottom:clamp(20px,3dvh,36px)}
+@media (max-height:760px){.since{display:none}}
+body,:root[data-theme="dark"] body{background:#5B0109!important}
+.app{background:linear-gradient(180deg,var(--page),var(--page2))}
+main{transform-origin:top center}
+.ico{width:clamp(42px,6.8dvh,64px);height:clamp(42px,6.8dvh,64px);margin-bottom:clamp(1px,.4dvh,4px);filter:drop-shadow(0 8px 8px #5A0F1A33)}
+.card{padding-top:clamp(6px,1.1dvh,12px)}
+.card .cta{margin-top:clamp(1px,.4dvh,5px)}
+.mi img{width:clamp(30px,4.8dvh,42px);height:clamp(30px,4.8dvh,42px);filter:drop-shadow(0 5px 5px #5A0F1A2E)}
+.mi{padding:clamp(5px,.9dvh,9px) 2px clamp(5px,.8dvh,8px)}
+.dl .lg,.dlv.n3 .dl .lg{width:clamp(30px,4.6dvh,38px);height:clamp(30px,4.6dvh,38px);font-size:clamp(14px,2.1dvh,17px)}
+.wa .ring{width:clamp(44px,6.4dvh,56px);height:clamp(44px,6.4dvh,56px)}
+@media (hover:hover){.mi:hover img{transform:translateY(-3px) scale(1.08) rotate(-4deg)}}
+.app{transform-origin:top center}
+
+/* ---- WhatsApp pill: sparks sit in their own gutter, never over the button ---- */
+.wawrap{display:grid;grid-template-columns:20px 1fr 20px;align-items:center;gap:4px}
+.wa{margin:0!important;min-width:0}
+.spark{position:static;margin:0;width:20px;height:30px}
+.spark.r{transform:scaleX(-1)}
+.wa>span:nth-child(2){min-width:0;flex:1}
+.wa b,.wa em{overflow:hidden;text-overflow:ellipsis}
+.wa .go{flex:none;margin-left:2px}
+html[lang="kn"] .wa b{font-size:clamp(13.5px,2.05dvh,17px)}
+@media (max-height:620px){.fline,.since{display:none}}
+@media (max-width:360px){.pill .lt{display:inline}.hdr{width:60%}}
 </style>
 </head>
 <body>
@@ -245,7 +345,7 @@ html.vt-theme::view-transition-new(root){z-index:2}
     <div><b>Mavalli Biryani</b><small data-k="area">Jayanagar</small></div>
   </div>
   <div class="ctl">
-    <button class="pill" id="lang" type="button" aria-label="ಕನ್ನಡ / English"><svg class="l" aria-hidden="true"><use href="#i-globe"/></svg><span class="lt" id="langt">English</span><svg class="l chev" aria-hidden="true"><use href="#i-chev"/></svg></button>
+    <button class="pill" id="lang" type="button" aria-label="ಕನ್ನಡ / English"><span class="lt" id="langt">EN</span><svg class="l chev" aria-hidden="true"><use href="#i-chev"/></svg></button>
     <button class="pill round" id="theme" type="button" aria-label="Switch light / dark theme"><svg class="l sun" aria-hidden="true"><use href="#i-sun"/></svg><svg class="l moon" aria-hidden="true"><use href="#i-moon"/></svg></button>
   </div>
   <div class="htext">
@@ -317,17 +417,17 @@ html.vt-theme::view-transition-new(root){z-index:2}
 </main>
 
 <footer>
-  <img class="bd" src="badge.webp" width="62" height="62" alt="" loading="lazy" decoding="async">
+  <img class="bd" src="badge.webp" width="44" height="44" alt="" decoding="async">
   <div class="fname">Mavalli Biryani</div>
-  <div class="fsub" data-k="fsub">Taste of 1952 · Jayanagar</div>
   <div class="fline" data-k="ftag">Authentic Taste. Timeless Tradition.</div>
   <div class="frow">
     <a data-link="map" data-track="directions_footer" href="#" target="_blank" rel="noopener"><svg class="l" aria-hidden="true"><use href="#i-pin"/></svg><span data-k="loc">Jayanagar, Bengaluru</span></a>
     <span class="sep" aria-hidden="true"></span>
     <a data-track="instagram" href="https://www.instagram.com/mavallibiryani.jayanagar/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="l" aria-hidden="true"><use href="#i-ig"/></svg></a>
+    <span class="sep" aria-hidden="true"></span>
+    <button class="share" id="share" type="button" data-track="share" aria-label="Share this page"><svg class="l" aria-hidden="true"><use href="#i-share"/></svg></button>
   </div>
-  <button class="share" id="share" type="button" data-track="share"><svg class="l" aria-hidden="true"><use href="#i-share"/></svg><span data-k="share">Share this page</span></button>
-  <p class="fsmall">Site No. 926/61, 28th Main, 41st Cross, 9th Block, Jayanagar, Bengaluru 560069<br>FSSAI 21226193001815 · Made by <a href="https://bjnexusai.com" target="_blank" rel="noopener">BJNEXUS AI</a></p>
+  <p class="fsmall">FSSAI 21226193001815 · Made by <a href="https://bjnexusai.com" target="_blank" rel="noopener">BJNEXUS AI</a></p>
 </footer>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -371,7 +471,7 @@ var I18N={
   call:'Call',dir:'Directions',fb:'Tell Manager',save:'Save Contact',fsub:'Taste of 1952 · Jayanagar',ftag:'Authentic Taste. Timeless Tradition.',loc:'Jayanagar, Bengaluru',
   share:'Share this page',today:'Today',open:'Open · closes ',soon:'Closing soon · ',closed:'Closed · opens ',tmr:'tomorrow ',
   days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],wamsg:'Hi, I want to order biryani',wamsgT:'Hi, ordering from Table ',fbmsg:'Feedback for Mavalli Biryani Jayanagar: ',
-  langBtn:'English',copied:'Link copied',saved:'Contact downloaded',upiCopied:'No UPI app? ID copied: '},
+  langBtn:'EN',copied:'Link copied',saved:'Contact downloaded',upiCopied:'No UPI app? ID copied: '},
  kn:{area:'ಜಯನಗರ',since:'1952 ರ ರುಚಿ',welcome:'ಮಾವಳ್ಳಿ ಬಿರಿಯಾನಿಗೆ<br>ಸುಸ್ವಾಗತ',tagline:'ಅಸಲಿ ರುಚಿ…<br>ಅಚ್ಚಳಿಯದ ಪರಂಪರೆ…',site:'ವೆಬ್‌ಸೈಟ್',
   youat:'ನೀವು ಇರುವುದು',table:'ಟೇಬಲ್ ',wa:'ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಆರ್ಡರ್ ಮಾಡಿ',wa_s:'ಬೇಗ ಆರ್ಡರ್ ಮಾಡಿ · ಪಿಕಪ್ ಲಭ್ಯ',wa_t:'ಟೇಬಲ್‌ನಿಂದಲೇ ಆರ್ಡರ್ ಮಾಡಿ',
   menu:'ಮೆನು ನೋಡಿ',menu_s:'ಬಿರಿಯಾನಿ, ಸ್ಟಾರ್ಟರ್ಸ್ ಇನ್ನಷ್ಟು',menu_c:'ಮೆನು ತೆರೆಯಿರಿ',pay:'ಬಿಲ್ ಪಾವತಿ',pay_s:'UPI · GPay · PhonePe',pay_c:'ಪಾವತಿಸಿ',
@@ -522,8 +622,22 @@ if(q.get('admin')==='1'){var miss=[];if(!C.reviewUrl)miss.push('reviewUrl');if(!
   ['swiggy','zomato','rapido'].forEach(function(k){if(/search\?|\/bangalore$|rapido\.bike\/?$/.test(C.delivery[k]||''))miss.push(k+' (placeholder)')});
   setTimeout(function(){toast(miss.length?'Missing: '+miss.join(', '):'All links set ✓',6000)},900)}
 
+/* ---------- one-screen fit ---------- */
+var app=$('.app'),fitT;
+var mainEl=$('main');
+function fit(){   // shrink only the middle section (hero + footer stay full size) so the page fits one screen
+  mainEl.style.zoom='';
+  var H=window.innerHeight,h=document.documentElement.scrollHeight;
+  if(h>H){var m=mainEl.offsetHeight,z=Math.max(.7,(m-(h-H)-2)/m);mainEl.style.zoom=z;}
+}
+function fitSoon(){clearTimeout(fitT);fitT=setTimeout(fit,60)}
+addEventListener('resize',fitSoon);addEventListener('orientationchange',fitSoon);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitSoon);
+var _apply=applyLang;applyLang=function(){_apply();fitSoon()};
+
 track('view');
 applyLang();
+fit();
 })();
 </script>
 </body>
