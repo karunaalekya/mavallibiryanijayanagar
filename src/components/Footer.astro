@@ -1,6 +1,6 @@
 ---
 import { cfg, callNum, dirLink, waLink } from '../lib/site';
-const links = [['Home','/'],['Menu','/menu/'],['About Us','/about/'],['Order Now','/order/'],['Contact','/contact/'],['Gallery','/gallery/'],['Catering','/catering/'],['FAQ','/faq/']];
+const links = [['Home','/'],['Menu','/menu/'],['About Us','/about/'],['Order Now', cfg.orderUrl || '/order/'],['Contact','/contact/'],['Gallery','/gallery/'],['Catering','/catering/'],['FAQ','/faq/']];
 const legal = [['Privacy','/privacy/'],['Terms','/terms/'],['Refund & Cancellation','/refund/'],['Cookies','/cookies/']];
 const ico = {
   ig: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/>',
@@ -18,7 +18,7 @@ const soc = [
 <footer class="ftr bg-maroon text-ivory">
   <div class="ftr-main mx-auto max-w-[1440px] px-5 lg:px-12">
     <a href="/" class="ftr-brand"><img src="/img/logo-sm.webp" alt="" width="99" height="64" loading="lazy"><span><b class="font-display">Mavalli Biryani</b><small>JAYANAGAR · TASTE OF 1952</small></span></a>
-    <nav aria-label="Footer" class="ftr-nav"><ul>{links.map(([l,h]) => <li><a href={h}>{l}</a></li>)}</ul></nav>
+    <nav aria-label="Footer" class="ftr-nav"><ul>{links.map(([l,h]) => <li><a href={h} {...(/^https?:/.test(h) ? { target: '_blank', rel: 'noopener' } : {})}>{l}</a></li>)}</ul></nav>
     <ul class="ftr-soc" aria-label="Contact and social">{soc.map(([l,h,d,ext]: any) => <li><a href={h} aria-label={l} title={l} {...(ext ? { target: '_blank', rel: 'noopener' } : {})}><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={d} /></a></li>)}</ul>
   </div>
   <div class="ftr-info mx-auto max-w-[1440px] px-5 lg:px-12" id="visit">

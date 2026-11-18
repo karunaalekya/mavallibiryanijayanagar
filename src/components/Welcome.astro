@@ -1,10 +1,12 @@
 ---
 import { cfg, waIcon, brandIcon, telLink, callNum } from '../lib/site';
+const orderUrl = cfg.orderUrl || '/order/';
+const orderIcon = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#fff"/><path d="M7 9h2.8l2.3 11h10.2l1.9-8H11" fill="none" stroke="#8E1219" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="13" cy="24" r="1.7" fill="#8E1219"/><circle cx="21.5" cy="24" r="1.7" fill="#8E1219"/></svg>';
+const menuIcon = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#fff"/><path d="M8 8.5c3-1 5.600-.8 8 .8 2.400-1.600 5-1.800 8-.8V23c-3-.9-5.600-.7-8 .8-2.400-1.500-5-1.700-8-.8V8.500Z" fill="none" stroke="#8E1219" stroke-width="1.8" stroke-linejoin="round"/><path d="M16 9.300v14.500" stroke="#8E1219" stroke-width="1.8"/></svg>';
 const bagIcon = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#fff"/><path d="M9 12h14l-1.2 13H10.2L9 12Z" fill="#8E1219"/><path d="M12.5 12v-1.5a3.5 3.5 0 0 1 7 0V12" fill="none" stroke="#8E1219" stroke-width="2"/></svg>';
-const orderIcon = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#25D366"/><path d="M8 10h2.6l2.2 10.2h9.4L24 13H11.4" fill="none" stroke="#052E16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="13.6" cy="23.6" r="1.6" fill="#052E16"/><circle cx="21" cy="23.6" r="1.6" fill="#052E16"/></svg>';
 const dineIcon = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#fff"/><circle cx="17" cy="16" r="6.4" fill="none" stroke="#B8662E" stroke-width="2"/><circle cx="17" cy="16" r="2.6" fill="#B8662E"/><path d="M6.5 8v6.5M9 8v6.5M11.5 8v6.5M9 14.5V24M26.5 8c-2.2 1.2-2.2 6.300 0 8V24" fill="none" stroke="#B8662E" stroke-width="1.6" stroke-linecap="round"/></svg>';
 ---
-<div id="wz" class="wz" data-wa={cfg.whatsapp ? `https://wa.me/91${cfg.whatsapp}` : '/order/'} data-swiggy={cfg.swiggy || undefined} data-zomato={cfg.zomato || undefined} data-addr={cfg.address.line}>
+<div id="wz" class="wz" data-wa={cfg.whatsapp ? `https://wa.me/91${cfg.whatsapp}` : '/order/'} data-swiggy={cfg.swiggy || undefined} data-zomato={cfg.zomato || undefined} data-addr={cfg.address.line} data-order={orderUrl} data-menu="/menu/">
   <div id="wz-tip" class="wz-tip" hidden>
     <span lang="kn" class="font-kn font-bold">ನಮಸ್ಕಾರ!</span> Chat with us on WhatsApp
   </div>
@@ -17,8 +19,8 @@ const dineIcon = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
     <div id="wz-chat" class="wz-chat" aria-live="polite"></div>
     <div id="wz-opts" class="wz-opts" hidden></div>
     <form id="wz-form" class="wz-form" novalidate hidden>
-      <label class="wz-l" for="wz-name">Your name <em>(optional)</em></label>
-      <input id="wz-name" name="name" type="text" autocomplete="name" placeholder="e.g. Ravi" maxlength="40">
+      <label class="wz-l" for="wz-name">Your name</label>
+      <input id="wz-name" name="name" type="text" autocomplete="name" placeholder="e.g. Ravi" maxlength="40" required>
       <label class="wz-l" for="wz-phone">Mobile number <em>(optional)</em></label>
       <input id="wz-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="10-digit number" maxlength="14">
       <p id="wz-err" class="wz-err" role="alert" hidden></p>
@@ -26,9 +28,10 @@ const dineIcon = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
       <div class="wz-alt"><button type="button" id="wz-again" class="wz-link">↺ Change option</button>{callNum && <a href={telLink} class="wz-link" data-evt="call_click">Call hotel · <span lang="kn" class="font-kn">ಕರೆ ಮಾಡಿ</span></a>}</div>
     </form>
     <template id="wz-modes">
-      <button type="button" class="wz-chip wz-chip-order" data-m="order"><Fragment set:html={orderIcon} /><span>Order now<small>Order directly on WhatsApp</small></span></button>
+      <button type="button" class="wz-chip wz-chip-order" data-m="order"><Fragment set:html={orderIcon} /><span>Order now<small>Order online</small></span></button>
       {cfg.swiggy && <button type="button" class="wz-chip" data-m="swiggy"><Fragment set:html={brandIcon.swiggy} /><span>Swiggy<small>Delivery</small></span></button>}
       {cfg.zomato && <button type="button" class="wz-chip" data-m="zomato"><Fragment set:html={brandIcon.zomato} /><span>Zomato<small>Delivery</small></span></button>}
+      <button type="button" class="wz-chip" data-m="menu"><Fragment set:html={menuIcon} /><span>Menu<small>See dishes &amp; prices</small></span></button>
       <button type="button" class="wz-chip" data-m="pickup"><Fragment set:html={bagIcon} /><span>Pickup<small>Take away</small></span></button>
       <button type="button" class="wz-chip" data-m="dine"><Fragment set:html={dineIcon} /><span>Dine-in<small>Book a table</small></span></button>
     </template>
@@ -115,8 +118,10 @@ const dineIcon = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
   .wz-chip:active{transform:scale(.97)}
   @media (hover:hover){.wz-chip:hover{background:rgba(37,211,102,.18);border-color:#25D366}}
   .wz-chip:focus-visible,.wz-x:focus-visible,.wz-link:focus-visible{outline:2px solid #9BF0BE;outline-offset:2px}
-  .wz-chip-order{grid-column:1/-1;background:linear-gradient(135deg,#3CE985,#25D366 55%,#16A34A);border-color:#25D366;color:#052E16}
+  .wz-chip-order{background:linear-gradient(135deg,#3CE985,#25D366 55%,#16A34A);border-color:#25D366;color:#052E16}
   .wz-chip-order small{color:#0B4A2A}
+  .wz-opts:not(.g) .wz-chip-order{grid-column:1/-1}
+  .wz-opts:not(.g) .wz-chip:last-child:nth-child(even){grid-column:1/-1}
   @media (hover:hover){.wz-chip-order:hover{background:linear-gradient(135deg,#4DF095,#2FDB72 55%,#1CB555);border-color:#4DF095}}
   .wz-opts.g .wz-chip{justify-content:center;text-align:center;padding:.4rem .2rem;font-size:.95rem}
   .wz-form{display:grid;gap:.35rem;padding:.75rem .9rem .85rem;background:#101E25;border-top:1px solid var(--line);animation:wzin .3s ease-out both}
@@ -142,7 +147,7 @@ const dineIcon = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
   const goT = document.getElementById('wz-go-t')!, again = document.getElementById('wz-again')!;
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const st = document.getElementById('wz-st')!; const idle = st.textContent!;
-  type Mode = 'order' | 'swiggy' | 'zomato' | 'pickup' | 'dine';
+  type Mode = 'order' | 'menu' | 'swiggy' | 'zomato' | 'pickup' | 'dine';
   let started = false, run = 0, fast = false, mode: Mode | null = null, guests = '';
   const wait = (ms: number) => new Promise<void>((r) => setTimeout(r, fast || calm ? 0 : ms));
   const rnd = (a: number, b: number) => a + Math.random() * (b - a);
@@ -198,26 +203,32 @@ const dineIcon = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
     opts.hidden = false; down(); (opts.querySelector('.wz-chip') as HTMLElement)?.focus({ preventScroll: true });
   };
   const askName = () => { form.hidden = false; down(); nameI.focus({ preventScroll: true }); };
-  const label = (m: Mode) => ({ order: 'Order now', swiggy: 'Swiggy', zomato: 'Zomato', pickup: 'Pickup', dine: 'Dine-in' }[m]);
+  const label = (m: Mode) => ({ order: 'Order now', menu: 'Menu', swiggy: 'Swiggy', zomato: 'Zomato', pickup: 'Pickup', dine: 'Dine-in' }[m]);
   const pick = async (m: Mode, text: string) => {
     mode = m; guests = ''; hideAll(); const id = ++run;
-    await userSay(m === 'order' ? 'Order now 🍲' : m === 'dine' ? 'Dine-in 🍽️' : m === 'pickup' ? 'Pickup 🥡' : `${label(m)} 🛵`);
+    await userSay(m === 'order' ? 'Order now 🍲' : m === 'menu' ? 'Menu 📖' : m === 'dine' ? 'Dine-in 🍽️' : m === 'pickup' ? 'Pickup 🥡' : `${label(m)} 🛵`);
     const addr = wz.dataset.addr || 'Jayanagar';
-    if (m === 'order') {
-      if (!await botSay('Great choice! 🍲 Add your name and mobile number if you like (both optional), then tap Continue on WhatsApp.', id)) return;
+    if (m === 'order' || m === 'menu') {
+      const isOrder = m === 'order';
+      if (!await botSay(isOrder ? 'Great choice! 🍲 Tap below to order online.' : 'Here is our menu with prices 📖', id)) return;
+      const a = document.createElement('a'); a.className = 'wb act'; a.href = (isOrder ? wz.dataset.order : wz.dataset.menu) || '/menu/';
+      if (isOrder) { a.target = '_blank'; a.rel = 'noopener'; }
+      a.textContent = isOrder ? 'Order Now →' : 'View Menu →'; a.dataset.evt = isOrder ? 'order_click' : 'menu_view'; chat.appendChild(a); down();
+      if (isOrder) { if (!await botSay('Prefer WhatsApp? Share your name and we will take your order directly.', id)) return; }
+      else { mode = null; if (!await botSay('Ready to order? Pick an option 👇', id)) return; showModes(); return; }
     } else if (m === 'swiggy' || m === 'zomato') {
       const url = wz.dataset[m]; const nm = label(m);
       if (url) {
         if (!await botSay(`${nm} it is! 🛵 Tap below and we will get it to you hot.`, id)) return;
         const a = document.createElement('a'); a.className = 'wb act'; a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = `Open ${nm} →`; a.dataset.evt = `${m}_click`; chat.appendChild(a); down();
-        if (!await botSay('Prefer WhatsApp? Add your name if you like and we will take your order directly.', id)) return;
+        if (!await botSay('Prefer WhatsApp? Share your name and we will take your order directly.', id)) return;
       } else {
         if (!await botSay(`${nm} is coming soon to Jayanagar 🛵`, id)) return;
-        if (!await botSay('Till then, order right here on WhatsApp. Same menu, same wood fire. Your name is optional.', id)) return;
+        if (!await botSay('Till then, order right here on WhatsApp. Same menu, same wood fire. Your name, please?', id)) return;
       }
     } else if (m === 'pickup') {
       if (!await botSay(`Pickup it is 🥡 We are at ${addr}.`, id)) return;
-      if (!await botSay('Your name is optional. We will keep it hot and packed.', id)) return;
+      if (!await botSay('Your name, please? We will keep it hot and packed.', id)) return;
     } else {
       if (!await botSay('Lovely, a table for you! 🍽️ How many of you?', id)) return;
       showGuests(); return;
@@ -227,7 +238,7 @@ const dineIcon = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
   const pickGuests = async (g: string) => {
     guests = g; hideAll(); const id = ++run;
     await userSay(`${g} people`);
-    if (!await botSay('Perfect! 🙌 Your name is optional.', id)) return;
+    if (!await botSay('Perfect! 🙌 Your name, please?', id)) return;
     askName();
   };
   const play = async () => {
@@ -246,19 +257,17 @@ const dineIcon = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
     e.preventDefault();
     const name = nameI.value.trim().replace(/\s+/g, ' '); const digits = phoneI.value.replace(/\D/g, '').replace(/^(91|0)(?=\d{10}$)/, '');
     nameI.removeAttribute('aria-invalid'); phoneI.removeAttribute('aria-invalid'); err.hidden = true;
+    if (name.length < 2) { nameI.setAttribute('aria-invalid', 'true'); err.textContent = 'Please tell us your name.'; err.hidden = false; nameI.focus(); return; }
     if (phoneI.value.trim() && !/^[6-9]\d{9}$/.test(digits)) { phoneI.setAttribute('aria-invalid', 'true'); err.textContent = 'Enter a valid 10-digit mobile number, or leave it empty.'; err.hidden = false; phoneI.focus(); return; }
-    const how = mode === 'pickup' ? 'I would like to order for pickup.' : mode === 'dine' ? `I would like to book a table for ${guests || 'a few'} people (dine-in).` : mode === 'swiggy' || mode === 'zomato' ? `I would like a delivery order (${label(mode)}).` : 'I want to order biryani.';
-    const msg = 'ನಮಸ್ಕಾರ! Hi Mavalli Biryani Jayanagar,' + (name ? ` I'm ${name}.` : '') + (digits ? ` My number is +91 ${digits}.` : '') + ' ' + how;
+    const how = mode === 'pickup' ? 'I would like to order for pickup.' : mode === 'dine' ? `I would like to book a table for ${guests || 'a few'} people (dine-in).` : mode === 'swiggy' || mode === 'zomato' ? `I would like a delivery order (${label(mode)}).` : 'I want to order.';
+    const msg = `ನಮಸ್ಕಾರ! Hi Mavalli Biryani Jayanagar, I'm ${name}.` + (digits ? ` My number is +91 ${digits}.` : '') + ' ' + how;
     const base = wz.dataset.wa!; const url = base.startsWith('http') ? `${base}?text=${encodeURIComponent(msg)}` : base;
     (window as any).dataLayer?.push({ event: 'whatsapp_click' });
     // open inside the tap itself so phone browsers do not block the new tab
     const a = document.createElement('a'); a.href = url; a.target = '_blank'; a.rel = 'noopener'; document.body.appendChild(a); a.click(); a.remove();
     form.hidden = true; const id = ++run;
-    await userSay([name && `I'm ${name}`, digits && `+91 ${digits}`].filter(Boolean).join(' · ') || 'Just open WhatsApp');
-    if (!await botSay(name ? `Thank you, ${name}! 🙏 Opening WhatsApp for you now.` : 'Opening WhatsApp for you now. 🙏', id)) return;
-    // fallback: if the browser blocked the new tab, this link always works
-    chat.querySelector('.wa-open')?.remove();
-    const o = document.createElement('a'); o.className = 'wb act wa-open'; o.href = url; o.target = '_blank'; o.rel = 'noopener'; o.textContent = 'Open WhatsApp →'; o.dataset.evt = 'whatsapp_click'; chat.appendChild(o);
+    await userSay(`I'm ${name}${digits ? ' · +91 ' + digits : ''}`);
+    if (!await botSay(`Thank you, ${name}! 🙏 Opening WhatsApp for you now.`, id)) return;
     goT.textContent = 'Open WhatsApp again'; form.hidden = false; down();
   });
   const desk = matchMedia('(min-width:1024px)');

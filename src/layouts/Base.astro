@@ -54,8 +54,8 @@ const ld = [rest, crumbLd, ...jsonld].filter(Boolean);
     <slot />
   </main>
   <Footer />
-  <nav id="qbar" class="qbar fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 bg-ink text-center text-sm font-semibold text-ivory lg:hidden" aria-label="Quick actions">
-    <a class="py-3" href={telLink} data-evt="call_click">Call</a><a class="py-3" href={waLink()} data-evt="whatsapp_click">WhatsApp</a><a class="py-3" href="/menu/" data-evt="menu_view">Menu</a><a class="py-3" href={dirLink} target="_blank" rel="noopener" data-evt="directions_click">Directions</a>
+  <nav id="qbar" class="qbar fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 bg-ink text-center text-[13px] font-semibold text-ivory lg:hidden" aria-label="Quick actions">
+    <a class="py-3" href={telLink} data-evt="call_click">Call</a><a class="py-3" href={waLink()} data-evt="whatsapp_click">WhatsApp</a><a class="py-3 text-gold" href={cfg.orderUrl || '/order/'} target="_blank" rel="noopener" data-evt="order_click">Order</a><a class="py-3" href="/menu/" data-evt="menu_view">Menu</a><a class="py-3" href={dirLink} target="_blank" rel="noopener" data-evt="directions_click">Directions</a>
   </nav>
   <Welcome />
   <CookieBanner />

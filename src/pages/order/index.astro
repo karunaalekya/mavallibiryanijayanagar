@@ -4,22 +4,13 @@ import OrderCards from '../../components/OrderCards.astro';
 import { cfg } from '../../lib/site';
 ---
 <Base solid title="Order Biryani in Jayanagar | Call or WhatsApp" description="Order Mavalli Biryani Jayanagar by call, WhatsApp or delivery apps. Pickup available." crumbs={[['Order','/order/']]}>
-  <div class="order-page mx-auto max-w-6xl px-4 pb-20 pt-6">
+  <div class="mx-auto max-w-5xl px-4 pb-20 pt-6">
     <h1 class="h-rule font-display text-4xl sm:text-5xl">Order biryani in Jayanagar</h1>
-    <p class="order-lead mt-6">Choose how you want to order. Tell us the dish and how many people you are feeding.</p>
-    <div class="order-box mt-6 rounded-2xl bg-ink p-4 pb-6 sm:p-6"><OrderCards /></div>
+    <p class="mt-6">Choose how you want to order. Tell us the dish and how many people you are feeding.</p>
+    <div class="mt-6 rounded-2xl bg-ink p-4 pb-6 sm:p-6"><OrderCards /></div>
     <h2 class="mt-12 font-display text-2xl">Pickup</h2>
     <p class="mt-2">Collect from our outlet at {cfg.address.line}, {cfg.address.city} {cfg.address.pin}. See <a class="underline" href="/contact/">directions and hours</a>.</p>
     <h2 class="mt-8 font-display text-2xl">Parties and offices</h2>
     <p class="mt-2">For large orders use the <a class="underline" href="/catering/">catering page</a>.</p>
   </div>
 </Base>
-<style is:global>
-  /* Short desktop windows (laptops, browser with taskbar): fit the order box on one screen */
-  @media (min-width:1024px) and (max-height:820px){
-    .order-page{padding-top:.5rem}
-    .order-page h1{font-size:2.6rem;line-height:1.1}
-    .order-lead{margin-top:1rem}
-    .order-box{margin-top:.75rem;padding:.9rem 1.25rem 1.1rem}
-  }
-</style>

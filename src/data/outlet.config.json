@@ -32,7 +32,7 @@
     ],
     [
       "Order Now",
-      "/order/"
+      "https://mavallibiryani.dotpe.in/order"
     ],
     [
       "Contact",
@@ -49,5 +49,6 @@
   "googleReviews": null,
   "googleReviewsUrl": null,
   "googleReviewUrl": null,
-  "pickup": "https://mavallibiryani.dotpe.in/store/1/takeaway"
+  "pickup": "https://mavallibiryani.dotpe.in/order",
+  "orderUrl": "https://mavallibiryani.dotpe.in/order"
 }
