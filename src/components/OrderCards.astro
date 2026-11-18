@@ -54,4 +54,22 @@ const pickup = cfg.pickup || '/contact/';
   .oc-btn-gold{background:linear-gradient(145deg,#E8BC5A,#B8832A);color:var(--color-ink)}
   .oc-alt{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-top:1.5rem}
   .oc-pill{display:inline-flex;align-items:center;gap:.5rem;min-height:48px;padding:.5rem 1.2rem;border-radius:999px;border:1.5px solid var(--color-gold);color:var(--color-gold);font-weight:700}
+  /* Short desktop windows: compact cards so buttons + WhatsApp/Call row stay on screen */
+  @media(min-width:760px) and (max-height:820px){
+    .oc-grid{gap:2rem 1rem;padding-top:1.6rem}
+    .oc-card{padding:2.5rem 1rem .9rem}
+    .oc-ico{top:-28px;width:62px;height:62px}
+    .oc-ico :global(svg){width:46px;height:46px}
+    .oc-gold svg{width:30px;height:30px}
+    .oc-tag{top:-50px;font-size:.62rem;padding:.22rem .65rem}
+    .oc-card h2{font-size:1.15rem}
+    .oc-sub{margin:.15rem 0 .5rem;padding-bottom:.5rem;font-size:.8rem}
+    .oc-card ul{margin-bottom:.5rem;gap:.2rem;font-size:.92rem}
+    .oc-note{display:none}
+    .oc-btn{min-height:42px}
+    .oc-alt{margin-top:1rem}
+    .oc-pill{min-height:42px;padding:.3rem 1rem}
+  }
+  /* Narrow tablets: avoid the 3 cards getting cramped */
+  @media(min-width:760px) and (max-width:900px){.oc-card h2{font-size:1.05rem}.oc-btn{font-size:.85rem}}
 </style>
