@@ -33,7 +33,7 @@ Add 6 to 12 dishes once menu.json is confirmed: real photo, name, price, short d
 New order, Confirmed, Paid, Bulk enquiry, Follow up.
 
 ## Link and QR
-- Order link used on the site: https://wa.me/919663066999?text=Hi%2C%20I%20want%20to%20order%20biryani
+- Order link used on the site: https://wa.me/919071151999?text=Hi%2C%20I%20want%20to%20order%20biryani
 - QR: in the WhatsApp Business app go to Business tools > Short link > QR code, and download it (it opens the same chat). Print it for the counter and packaging (A6 card: "Scan to order on WhatsApp").
 
 ## Rules

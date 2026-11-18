@@ -8,7 +8,7 @@ SEO: titles, meta, canonical, OG/Twitter, og-image.jpg, Restaurant + BreadcrumbL
 All facts live in `src/data/outlet.config.json` and `src/data/menu.json`. Phone, WhatsApp, Swiggy, Zomato and maps buttons appear only once filled; until then Order falls back to email and Instagram.
 
 ## Owner blockers (NOT launch-ready until done)
-1. Call number (WhatsApp 9663066999 is set; add `phone` if calls go to the same or another number)  2. Address DONE (41st Cross, 9th Block, confirmed by owner)  3. Opening hours  4. Real menu items and prices (menu.json has only items seen in photos, no prices)  5. Domain (`domain` in config, and `site` in astro.config.mjs)  6. Google Maps link  7. Franchisor OK for logo/brand  8. Clean Jayanagar photos  9. Swiggy/Zomato links if live  10. Privacy and Terms are plain drafts, get them reviewed.
+1. Call number (WhatsApp 9071151999 is set; add `phone` if calls go to the same or another number)  2. Address DONE (41st Cross, 9th Block, confirmed by owner)  3. Opening hours  4. Real menu items and prices (menu.json has only items seen in photos, no prices)  5. Domain (`domain` in config, and `site` in astro.config.mjs)  6. Google Maps link  7. Franchisor OK for logo/brand  8. Clean Jayanagar photos  9. Swiggy/Zomato links if live  10. Privacy and Terms are plain drafts, get them reviewed.
 
 ## Notes
 - Only 4 clean dish photos exist. Reels have Instagram overlays and other outlets' text, so no video is used.

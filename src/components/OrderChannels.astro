@@ -10,5 +10,6 @@ const apps = (['zomato', 'swiggy', 'ownly'] as const).filter((k) => cfg[k]);
   {apps.length > 0 && <div class="grid gap-3 sm:grid-cols-2">
     {apps.map((k) => <a href={cfg[k]} target="_blank" rel="noopener" class={`obtn obtn-brand obtn-${k}`} data-evt={`${k}_click`}><span class="flex items-center gap-3"><Fragment set:html={brandIcon[k]} /><span><span class="wm">{k}</span><i class="pill">Delivery</i></span></span><span aria-hidden="true">→</span></a>)}
   </div>}
-  <a href={dirLink} target="_blank" rel="noopener" class="obtn" style="border:1.5px solid var(--color-gold);color:var(--color-gold)" data-evt="directions_click"><span>Pickup from Jayanagar<small>{cfg.address.line}</small></span><span aria-hidden="true">→</span></a>
+  {cfg.pickup && <a href={cfg.pickup} target="_blank" rel="noopener" class="obtn" style="border:1.5px solid var(--color-gold);color:var(--color-gold)" data-evt="pickup_click"><span>Order Pickup Online<small>ಟೇಕ್‌ಅವೇ · Skip the wait, collect at Jayanagar</small></span><span aria-hidden="true">→</span></a>}
+  <a href={dirLink} target="_blank" rel="noopener" class="obtn" style="border:1.5px solid var(--color-gold);color:var(--color-gold)" data-evt="directions_click"><span>Directions to Jayanagar<small>{cfg.address.line}</small></span><span aria-hidden="true">→</span></a>
 </div>

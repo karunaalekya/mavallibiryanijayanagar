@@ -6,14 +6,14 @@
       "items": [
         {
           "name": "Mutton Biriyani",
-          "price": 350,
+          "price": 360,
           "kn": "ಮಟನ್ ಬಿರಿಯಾನಿ",
           "img": "mutton-biryani.webp",
           "badge": "Best Seller"
         },
         {
           "name": "Chicken Biriyani",
-          "price": 250,
+          "price": 260,
           "kn": "ಚಿಕನ್ ಬಿರಿಯಾನಿ",
           "img": "chicken-biryani.webp",
           "badge": "Best Seller"
@@ -67,6 +67,10 @@
           "name": "Curd Rice",
           "price": 150,
           "img": "curd-rice.webp"
+        },
+        {
+          "name": "Ghee Rice",
+          "price": 200
         }
       ]
     },
@@ -189,7 +193,7 @@
           "img": "lemon-chicken-boneless.webp"
         },
         {
-          "name": "Shole Kabab Boneless",
+          "name": "Sholay Kabab",
           "price": 280,
           "img": "shole-kabab-boneless.webp"
         },
@@ -205,8 +209,8 @@
       "name": "Soup",
       "items": [
         {
-          "name": "Kaal Soup (1 Pcs)",
-          "price": 160,
+          "name": "Leg Soup (1 Pcs)",
+          "price": 170,
           "kn": "ಕಾಲ್ ಸೂಪ್",
           "img": "kaal-soup.webp",
           "badge": "Best Seller"
@@ -231,14 +235,14 @@
           "img": "thatte-idly.webp"
         },
         {
-          "name": "Kaal Soup (1 Pcs)",
+          "name": "Leg Soup",
           "price": 170,
           "kn": "ಕಾಲ್ ಸೂಪ್",
           "img": "kaal-soup-sunday-special.webp"
         },
         {
           "name": "Plain Soup",
-          "price": 70,
+          "price": 80,
           "kn": "ಪ್ಲೈನ್ ಸೂಪ್",
           "img": "plain-soup-sunday-special.webp"
         }

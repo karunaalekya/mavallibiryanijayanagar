@@ -2,7 +2,7 @@
   "name": "Mavalli Biryani Jayanagar",
   "domain": "mavallibiryanijayanagar.com",
   "phone": null,
-  "whatsapp": "9663066999",
+  "whatsapp": "9071151999",
   "hours": null,
   "address": {
     "line": "Site No. 926/61, 28th Main, 41st Cross, 9th Block, Jayanagar",
@@ -48,5 +48,6 @@
   "googleRating": null,
   "googleReviews": null,
   "googleReviewsUrl": null,
-  "googleReviewUrl": null
+  "googleReviewUrl": null,
+  "pickup": "https://mavallibiryani.dotpe.in/store/1/takeaway"
 }
